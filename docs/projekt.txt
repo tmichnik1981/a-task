@@ -1,0 +1,106 @@
+1. Start Screen
+-------------------------------------- 
+
+NEW GAME (M1)  CONTINUE (M2)  EXIT (M3)
+
+
+Command: _
+
+-------------------------------------- 
+
+2a. New Game - level
+-------------------------------------- 
+error msg
+
+BACK (M1) NEXT (M2) EXIT (M3)
+
+- Novice (0)
+- Medium (1)
+- Hard (2)
+
+Command: _
+
+-------------------------------------
+
+2b. New Game - character
+-------------------------------------- 
+
+BACK (M1) FINISH (M2) EXIT (M3)
+
+ENTER CHARACTER DETAILS
+
+Name: _
+Type (knight, sorcerer): _
+Command: _
+
+-------------------------------------- 
+
+
+3a. Continue saved game 
+-------------------------------------- 
+
+BACK (M1) EXIT (M2)
+
+LIST of SAVED GAMES:
+- aa 
+- bbb 
+
+Command: _
+
+-------------------------------------- 
+
+
+
+4a. Game - Battle
+-------------------------------------- 
+SAVE (M1) SAVE AND EXIT (M2) EXIT (M3)
+
+Location: foo location
+Status: Battle
+
+Player: name knight/wizzard level x
+Enemy: dragon level x
+
+
+Command: _
+
+4b. Game - Resting
+-------------------------------------- 
+SAVE (M1) SAVE AND EXIT (M2) EXIT WITHOUT SAVING (M3)
+
+Day: 10-10-1987
+Location: foo location
+
+Player: 
+Name: knight/wizzard level x
+Life: x (x%)
+Energy: y (y%)
+
+Keep resting (0)
+Move to location (1):
+- xxx (visited)
+- cede (new)
+- 3wd3d (new)
+
+Command: _
+
+4b. Game - Travelling
+-------------------------------------- 
+SAVE (M1) SAVE AND EXIT (M2) EXIT WITHOUT SAVING (M3)
+
+Day: 10-10-1987
+Location: on the way to Foo
+
+Player: 
+Name: knight/wizzard level x
+Life: x (x%)
+Energy: y (y%)
+
+Keep travelling (0)
+Rest (1)
+Go Back (2):
+
+Command: _
+
+
+

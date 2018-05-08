@@ -1,0 +1,37 @@
+viewname | request-params | results(model,template, viewname) 
+------------------------------------
+start    | <empty>		  | model  generic  start	 
+start	 | M1	(new game)|	    			new_game_a 
+start    | M2	(continue)|             	continue
+start	 | M3	(exit)	  |	<NA> <NA>       exit 
+--------------------------------------------------------
+new_game_a  | <empty>		  | model   new_game_a 	 
+new_game_a 	| M1	(back)	  |	        start
+new_game_a  | M2 ,1/2/3	(next)|         new_game_b	
+new_game_a 	| M3	(exit)	  |	<NA> <NA>       exit 
+--------------------------------------------------------
+new_game_b  | <empty>		  | model   new_game_a 	 
+new_game_b 	| M1	(back)	  |	        new_game_b
+new_game_b  | M2, player(finish)  |         	??? GameHandler
+new_game_b 	| M3	(exit)	  |	<NA> <NA>    exit 
+---------------------------------------------------
+continue    | <empty>		  | model   continue	 
+continue 	| M1	(back)	  |	        start
+continue 	| M2	(exit)	  |	<NA> <NA>    exit 
+continue 	| saved_game_key |	<NA> <NA>    ???   GameHandler
+---------------------------------------------------
+GameHandler
+
+needed classes:
+
+GameHandler: komunikacja z kontrolerem, 
+zawiera repository do zapisu/odczytu stanu gry na/z dysku
+tymczasowy stan jest trzymany w pseudosesji
+
+
+- GameFactory (produces: Game: level, currentStep, player(name, type, health, attack, defense) )
+- PlayerFactory (produces players characters)
+- EnemyFactory 
+- 
+- ScenarioFactory 
+
