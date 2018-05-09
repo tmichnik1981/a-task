@@ -1,4 +1,4 @@
 package com.me.poc.service;
 
-public class GameService {
+public class GameService implements ApplicationService {
 }
