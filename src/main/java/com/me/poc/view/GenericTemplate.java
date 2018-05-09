@@ -1,23 +1,12 @@
 package com.me.poc.view;
 
-import com.me.poc.ViewCommand;
-import com.me.poc.ViewModel;
-import com.me.presentation.ANSII;
-import com.me.presentation.command.Command;
-import com.me.presentation.command.ExitGameCommand;
-import com.me.presentation.command.OpenWindowCommand;
-import com.me.presentation.exception.ExitingException;
-import com.me.presentation.exception.UnKnownCommandException;
-import com.me.presentation.window.ContinueGameWindow;
-import com.me.presentation.window.GameWindow;
-import com.me.presentation.window.NewGameWindow;
-import com.me.util.StringUtils;
+import com.me.poc.util.ANSII;
+import com.me.poc.exception.UnKnownCommandException;
+import com.me.poc.util.StringUtils;
 
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
-import java.util.HashMap;
-import java.util.Map;
 import java.util.Set;
 
 public class GenericTemplate {

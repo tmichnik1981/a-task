@@ -1,10 +1,8 @@
 package com.me.poc.view;
 
-import com.me.poc.ViewCommand;
-import com.me.poc.ViewModel;
-import com.me.presentation.ANSII;
-import com.me.presentation.exception.UnKnownCommandException;
-import com.me.util.StringUtils;
+import com.me.poc.util.ANSII;
+import com.me.poc.exception.UnKnownCommandException;
+import com.me.poc.util.StringUtils;
 
 import java.io.BufferedReader;
 import java.io.IOException;

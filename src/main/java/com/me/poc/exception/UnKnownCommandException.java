@@ -1,4 +1,4 @@
-package com.me.presentation.exception;
+package com.me.poc.exception;
 
 public class UnKnownCommandException  extends RuntimeException  {
 

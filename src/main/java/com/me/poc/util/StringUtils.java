@@ -1,4 +1,4 @@
-package com.me.util;
+package com.me.poc.util;
 
 public class StringUtils {
 

@@ -1,7 +1,8 @@
-package com.me.poc;
+package com.me.poc.controller;
 
 
 import com.me.poc.view.GenericTemplate;
+import com.me.poc.view.ViewModel;
 
 import java.util.Map;
 

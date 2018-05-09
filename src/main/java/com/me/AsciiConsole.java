@@ -1,9 +1,9 @@
-package com.me.presentation;
+package com.me;
 
 
-import com.me.poc.Controller;
-import com.me.poc.ViewCommand;
-import com.me.poc.ViewModel;
+import com.me.poc.controller.Controller;
+import com.me.poc.view.ViewCommand;
+import com.me.poc.view.ViewModel;
 
 import java.util.*;
 
@@ -12,7 +12,7 @@ public class AsciiConsole {
 
         //TODO: inicjalizacja frameworka gry
     public void start() {
-        Map<String, ViewModel> viewModels= new HashMap();
+        Map<String, ViewModel> viewModels = new HashMap();
 
         ViewModel startModel = new ViewModel();
         startModel.setTitle("Start");

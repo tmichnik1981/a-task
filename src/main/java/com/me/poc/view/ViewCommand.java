@@ -1,4 +1,4 @@
-package com.me.poc;
+package com.me.poc.view;
 
 import java.util.Set;
 

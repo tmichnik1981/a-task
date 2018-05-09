@@ -1,4 +1,4 @@
-package com.me.presentation.exception;
+package com.me.poc.exception;
 
 public class ExitingException extends RuntimeException {
     public ExitingException(String exiting) {
