@@ -2,6 +2,7 @@ package com.me.poc.controller;
 
 
 import com.me.poc.service.ServicesContainer;
+import com.me.poc.view.ViewMenu;
 import com.me.poc.view.ViewTemplate;
 
 import java.util.Collections;
@@ -29,11 +30,10 @@ public class Controller implements Runnable {
 
         View currentView = startingView;
         do {
-            System.out.println("Controller runs rendering " + k);
 
             TransferObject transferObject = servicesContainer.getService(currentView).handle(requestParams);
 
-            if(transferObject.isRedirect()){
+            if (transferObject.isRedirect()) {
                 currentView = transferObject.getView();
                 requestParams = Collections.EMPTY_MAP;
                 continue;
@@ -43,8 +43,9 @@ public class Controller implements Runnable {
 
             requestParams = template.render(transferObject.getViewModel());
 
-
-            System.out.println("Controller after rendering " + k );
+            if (requestParams.containsKey(ViewMenu.INPUT_KEY) && ViewMenu.QUIT.equalsIgnoreCase(requestParams.get(ViewMenu.INPUT_KEY))) {
+                break;
+            }
             ++k;
         } while (k < 3);
 

@@ -11,7 +11,7 @@ public class ViewModel {
     private final String title;
     private final String infoMessage;
     private final String errorMessage;
-    private final String menuText;
+    private final ViewMenu menu;
     private final String intro;
     private final List<ViewCommand> commands;
 
@@ -27,9 +27,6 @@ public class ViewModel {
         return errorMessage;
     }
 
-    public String getMenuText() {
-        return menuText;
-    }
 
     public String getIntro() {
         return intro;
@@ -39,13 +36,17 @@ public class ViewModel {
         return Collections.unmodifiableList(commands);
     }
 
+    public ViewMenu getMenu() {
+        return menu;
+    }
+
     public ViewModel(ViewModelBuilder builder) {
         this.title = builder.title;
         this.infoMessage = builder.infoMessage;
         this.errorMessage = builder.errorMessage;
-        this.menuText = builder.menuText;
         this.intro = builder.intro;
         this.commands = builder.commands;
+        this.menu = builder.menu;
     }
 
     public static ViewModelBuilder builder() {
@@ -55,11 +56,11 @@ public class ViewModel {
     public static class ViewModelBuilder {
 
         private String title;
-        private String infoMessage  = StringUtils.EMPTY;
-        private String errorMessage  = StringUtils.EMPTY;
-        private String menuText;
-        private String intro  = StringUtils.EMPTY;
+        private String infoMessage = StringUtils.EMPTY;
+        private String errorMessage = StringUtils.EMPTY;
+        private String intro = StringUtils.EMPTY;
         private List<ViewCommand> commands = new ArrayList<>();
+        private ViewMenu menu;
 
         public ViewModelBuilder withTitle(String title) {
             this.title = title;
@@ -76,24 +77,28 @@ public class ViewModel {
             return this;
         }
 
-        public ViewModelBuilder withMenuText(String menuText) {
-            this.menuText = menuText;
-            return this;
-        }
 
         public ViewModelBuilder withIntro(String intro) {
             this.intro = intro;
             return this;
         }
 
-        public ViewModelBuilder withViewCommand(ViewCommand command) {
-            this.commands.add(command);
+
+        public ViewModelBuilder withMenu(ViewMenu menu) {
+            this.menu = menu;
+            return this;
+        }
+
+        public ViewModelBuilder withViewCommand(ViewCommand viewCommand) {
+            this.commands.add(viewCommand);
             return this;
         }
 
         public ViewModel build() {
             return new ViewModel(this);
         }
+
+
     }
 
 }

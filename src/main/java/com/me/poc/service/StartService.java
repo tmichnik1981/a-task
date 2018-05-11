@@ -2,7 +2,7 @@ package com.me.poc.service;
 
 import com.me.poc.controller.TransferObject;
 import com.me.poc.controller.View;
-import com.me.poc.view.ViewCommand;
+import com.me.poc.view.ViewMenu;
 import com.me.poc.view.ViewModel;
 
 import java.util.HashSet;
@@ -14,24 +14,20 @@ public class StartService implements ApplicationService {
     @Override
     public TransferObject handle(Map<String, String> requestParams) {
 
-        TransferObject.TransferObjectBuilder  transferObjectBuilder = TransferObject.builder();
+        TransferObject.TransferObjectBuilder transferObjectBuilder = TransferObject.builder();
 
         if (requestParams.isEmpty()) {
             ViewModel.ViewModelBuilder viewModelBuilder = ViewModel.builder()
                 .withTitle("Start")
-                .withIntro("Welcome to Any RPG!!!")
-                .withMenuText("NEW GAME (M1)  CONTINUE (M2)  EXIT (M3)");
+                .withIntro("Welcome to Any RPG!!!");
 
+            Set<String> allowedValues = new HashSet<>();
+            allowedValues.add("M1");
+            allowedValues.add("M2");
+            allowedValues.add("Q");
 
-            ViewCommand viewCommand = new ViewCommand();
-            viewCommand.setText(">");
-            Set<String> allowedCommands = new HashSet<>();
-            allowedCommands.add("M1");
-            allowedCommands.add("M2");
-            allowedCommands.add("M3");
-            viewCommand.setAllowedValues(allowedCommands);
-
-            viewModelBuilder.withViewCommand(viewCommand);
+            ViewMenu menu = new ViewMenu("NEW GAME (M1)  CONTINUE (M2)  QUIT (Q)", allowedValues);
+            viewModelBuilder.withMenu(menu);
 
             transferObjectBuilder.withRedirect(false);
             transferObjectBuilder.withView(View.START);
