@@ -1,14 +1,19 @@
 package com.me.poc.view;
 
+import com.me.poc.util.StringUtils;
+
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
+
 public class ViewModel {
 
-
-    private String title="";
-    private String infoMessage="";
-    private String errorMessage="";
-    private String menu="";
-    private String description="";
-    private ViewCommand command;
+    private final String title;
+    private final String infoMessage;
+    private final String errorMessage;
+    private final String menuText;
+    private final String intro;
+    private final List<ViewCommand> commands;
 
     public String getTitle() {
         return title;
@@ -22,41 +27,73 @@ public class ViewModel {
         return errorMessage;
     }
 
-
-    public String getMenu() {
-        return menu;
+    public String getMenuText() {
+        return menuText;
     }
 
-
-    public String getDescription() {
-        return description;
+    public String getIntro() {
+        return intro;
     }
 
-    public ViewCommand getCommand() {
-        return command;
+    public List<ViewCommand> getCommands() {
+        return Collections.unmodifiableList(commands);
     }
 
-    public void setCommand(ViewCommand command) {
-        this.command = command;
+    public ViewModel(ViewModelBuilder builder) {
+        this.title = builder.title;
+        this.infoMessage = builder.infoMessage;
+        this.errorMessage = builder.errorMessage;
+        this.menuText = builder.menuText;
+        this.intro = builder.intro;
+        this.commands = builder.commands;
     }
 
-    public void setTitle(String title) {
-        this.title = title;
+    public static ViewModelBuilder builder() {
+        return new ViewModelBuilder();
     }
 
-    public void setInfoMessage(String infoMessage) {
-        this.infoMessage = infoMessage;
+    public static class ViewModelBuilder {
+
+        private String title;
+        private String infoMessage  = StringUtils.EMPTY;
+        private String errorMessage  = StringUtils.EMPTY;
+        private String menuText;
+        private String intro  = StringUtils.EMPTY;
+        private List<ViewCommand> commands = new ArrayList<>();
+
+        public ViewModelBuilder withTitle(String title) {
+            this.title = title;
+            return this;
+        }
+
+        public ViewModelBuilder withInfoMessage(String infoMessage) {
+            this.infoMessage = infoMessage;
+            return this;
+        }
+
+        public ViewModelBuilder withErrorMessage(String errorMessage) {
+            this.errorMessage = errorMessage;
+            return this;
+        }
+
+        public ViewModelBuilder withMenuText(String menuText) {
+            this.menuText = menuText;
+            return this;
+        }
+
+        public ViewModelBuilder withIntro(String intro) {
+            this.intro = intro;
+            return this;
+        }
+
+        public ViewModelBuilder withViewCommand(ViewCommand command) {
+            this.commands.add(command);
+            return this;
+        }
+
+        public ViewModel build() {
+            return new ViewModel(this);
+        }
     }
 
-    public void setErrorMessage(String errorMessage) {
-        this.errorMessage = errorMessage;
-    }
-
-    public void setMenu(String menu) {
-        this.menu = menu;
-    }
-
-    public void setDescription(String description) {
-        this.description = description;
-    }
 }

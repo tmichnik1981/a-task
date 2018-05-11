@@ -2,37 +2,28 @@ package com.me;
 
 
 import com.me.poc.controller.Controller;
-import com.me.poc.view.ViewCommand;
-import com.me.poc.view.ViewModel;
+import com.me.poc.controller.Template;
+import com.me.poc.controller.TemplateResolver;
+import com.me.poc.service.ServicesContainer;
+import com.me.poc.view.GenericTemplate;
+import com.me.poc.view.NewGameTemplate;
+import com.me.poc.view.ViewTemplate;
 
-import java.util.*;
+import java.util.HashMap;
+import java.util.Map;
 
 public class AsciiConsole {
 
-
-        //TODO: inicjalizacja frameworka gry
     public void start() {
-        Map<String, ViewModel> viewModels = new HashMap();
 
-        ViewModel startModel = new ViewModel();
-        startModel.setTitle("Start");
-        startModel.setDescription("Welcome to Any RPG!!!");
-        startModel.setMenu("NEW GAME (M1)  CONTINUE (M2)  EXIT (M3)");
-        ViewCommand viewCommand = new ViewCommand();
+        Map<Template, ViewTemplate> templates = new HashMap<>();
+        templates.put(Template.GENERIC, new GenericTemplate());
+        templates.put(Template.NEW_GAME, new NewGameTemplate());
 
-        viewCommand.setText(">");
-        Set<String> allowedCommands = new HashSet<>();
-        allowedCommands.add("M1");
-        allowedCommands.add("M2");
-        allowedCommands.add("M3");
-        viewCommand.setAllowedValues(allowedCommands);
+        ServicesContainer servicesContainer = ServicesContainer.getInstance();
+        TemplateResolver templateResolver = new TemplateResolver(templates);
 
-        startModel.setCommand(viewCommand);
-
-        viewModels.put("start",startModel );
-
-        new Thread(new Controller(viewModels)).start();
-
+        new Thread(new Controller(servicesContainer, templateResolver)).start();
     }
 
 

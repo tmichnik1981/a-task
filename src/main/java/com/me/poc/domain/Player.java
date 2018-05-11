@@ -100,7 +100,7 @@ public class Player implements Serializable {
         return Objects.hash(name, experience, level);
     }
 
-    public   static class PlayerBuilder {
+    public  static class PlayerBuilder {
         private String name;
         private int health;
         private int attack;

@@ -1,26 +1,31 @@
 package com.me.poc.view;
 
+import com.me.poc.exception.ValidationException;
 import com.me.poc.util.ANSII;
-import com.me.poc.exception.UnKnownCommandException;
 import com.me.poc.util.StringUtils;
 
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 import java.util.Set;
 
-public class GenericTemplate {
-
+public class GenericTemplate implements ViewTemplate {
 
     private final BufferedReader inputReader = new BufferedReader(new InputStreamReader(System.in));
-    private boolean keepWindowRunning;
-    private ViewModel model;
+    private boolean keepWindowRunning = true;
 
-    public String render(ViewModel model) {
+
+    public Map<String, String> render(ViewModel model) {
+        eraseScreen();
+
         keepWindowRunning = true;
         String validationMessage = "";
-        this.model = model;
-        String inputValue = "";
+        Map<String, String> results = new HashMap<>();
+
+
         do {
 
 
@@ -31,20 +36,40 @@ public class GenericTemplate {
             renderErrorMsg(model.getErrorMessage());
             renderErrorMsg(validationMessage);
 
-            renderMenu(model.getMenu());
+            renderMenu(model.getMenuText());
 
-            renderUnFormattedText(model.getDescription());
+            renderUnFormattedText(model.getIntro());
 
-
+            List<ViewCommand> viewCommands = model.getCommands();
             try {
-                ViewCommand viewCommand = model.getCommand();
+
+                for (ViewCommand eachCommand : viewCommands) {
+
+                    eachCommand.getTitle();
+                    eachCommand.getBody()
+                    eachCommand.getLabel()
+                    renderCommand(eachCommand.getLabel());
+
+                    String inputValue = results.get(eachCommand.getInputKey());
+
+                    if (StringUtils.isBlank(inputValue)) {
+                        inputValue = inputReader.readLine();
+                        //validate
+                        boolean valid = validateInput(inputValue, eachCommand.getAllowedValues(), eachCommand.getRegex());
+                    } else {
+                        renderUnFormattedText(inputValue);
+
+                    }
+
+
+                }
                 if (viewCommand != null) {
                     renderCommand(model.getCommand().getText());
                     inputValue = inputReader.readLine();
-                    validateInput(inputValue);
+                    validateInput(inputValue, eachCommand.getAllowedValues(), inputValue);
                 }
 
-            } catch (UnKnownCommandException ex) {
+            } catch (ValidationException ex) {
                 eraseScreen();
                 validationMessage = ex.getMessage();
             } catch (IOException e) {
@@ -52,28 +77,31 @@ public class GenericTemplate {
             }
 
         } while (keepWindowRunning);
-
-        return inputValue;
+        results.put("input", inputValue);
+        return results;
     }
 
-
-    public void validateInput(String key) {
-
-        Set<String> allowedCommands = model.getCommand().getAllowedValues();
+//TODO: add special menu keys
+    public boolean validateInput(String inputValue, Set<String> allowedValues, String regex) {
 
         String trimmedUpperKey = StringUtils.trimToEmpty(key).toUpperCase();
 
-        if (allowedCommands.contains(trimmedUpperKey)) {
-            keepWindowRunning = false;
+        if (allowedValues.contains(trimmedUpperKey)) {
+            stopWindow();
         } else {
-            throw new UnKnownCommandException("Provided unknown command: " + key);
+            return false;
+           /* throw new ValidationException("Provided unknown command: " + key);*/
         }
 
+        return true;
+    }
 
+    private void stopWindow() {
+        this.keepWindowRunning = false;
     }
 
     protected void renderCommand(String commandText) {
-        System.out.println("\n\n\n");
+        System.out.println("\n");
         System.out.print(commandText + " " + ANSII.NORMAL);
     }
 
@@ -105,7 +133,6 @@ public class GenericTemplate {
 
     protected void renderMenu(String menu) {
         System.out.println(ANSII.BLUE + menu + ANSII.NORMAL);
-        System.out.print("\n\n\n");
     }
 
 }
