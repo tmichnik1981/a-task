@@ -1,19 +1,19 @@
 viewname | request-params | results(model,template, viewname) 
 ------------------------------------
 start    | <empty>		  | model  generic  start	 
-start	 | M1	(new game)|	    			new_game_a 
-start    | M2	(continue)|             	continue
-start	 | M3	(exit)	  |	<NA> <NA>       exit 
+start	 | M1	(new game)|	    			redirect_to:new_game_a 
+start    | M2	(continue)|             	redirect_to:continue
+start	 | Q	(exit)	  |	EXITING IN CONTROLLER!!!
 --------------------------------------------------------
 new_game_a  | <empty>		  | model   new_game_a 	 
 new_game_a 	| M1	(back)	  |	        start
 new_game_a  | M2 ,1/2/3	(next)|         new_game_b	
-new_game_a 	| M3	(exit)	  |	<NA> <NA>       exit 
+new_game_a 	| Q	(exit)	  |	EXITING IN CONTROLLER!!!
 --------------------------------------------------------
 new_game_b  | <empty>		  | model   new_game_a 	 
 new_game_b 	| M1	(back)	  |	        new_game_b
 new_game_b  | M2, player(finish)  |         	??? GameHandler
-new_game_b 	| M3	(exit)	  |	<NA> <NA>    exit 
+new_game_b 	| Q	(exit)	  |	EXITING IN CONTROLLER!!!
 ---------------------------------------------------
 continue    | <empty>		  | model   continue	 
 continue 	| M1	(back)	  |	        start

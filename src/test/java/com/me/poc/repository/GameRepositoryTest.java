@@ -31,7 +31,7 @@ public class GameRepositoryTest {
 
         //when
 
-        boolean result =  repository.savePlayer(player, "aaa");
+        boolean result =  repository.savePlayer(player, "bbb");
 
         //then
         assertThat(result).isTrue();

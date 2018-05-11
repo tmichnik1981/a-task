@@ -7,6 +7,10 @@ import java.util.Map;
 public class GameService implements ApplicationService {
     @Override
     public TransferObject handle(Map<String, String> requestParams) {
+
+
+
+
         return null;
     }
 }

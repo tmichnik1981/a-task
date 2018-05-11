@@ -51,7 +51,6 @@ public class GenericTemplate implements ViewTemplate {
 
                     renderUnFormattedText(eachCommand.getTitle());
                     renderUnFormattedText(eachCommand.getBody());
-                    renderUnFormattedText(eachCommand.getLabel());
                     renderCommand(eachCommand.getLabel());
 
                     //was provided previously
@@ -67,7 +66,9 @@ public class GenericTemplate implements ViewTemplate {
                         Set<ViewCommand.ValidationStatus> validationStatuses = eachCommand.validateInputCommand(inputValue);
                         if (validationStatuses.contains(ViewCommand.ValidationStatus.VALID)) {
                             results.put(eachCommand.getInputKey(), inputValue);
-                            errorMessageBuilder.delete(0, errorMessageBuilder.length() - 1);
+                            if (errorMessageBuilder.length() > 0) {
+                                errorMessageBuilder.delete(0, errorMessageBuilder.length() - 1);
+                            }
                             continue;
                         } else {
 
@@ -99,6 +100,7 @@ public class GenericTemplate implements ViewTemplate {
             System.out.println(text);
         }
     }
+
     void eraseScreen() {
         System.out.println(ANSII.ERASE_SCREEN);
     }
@@ -106,6 +108,7 @@ public class GenericTemplate implements ViewTemplate {
     void renderTitle(String title) {
         System.out.println(ANSII.BACKGROUND_CYAN + title + ANSII.NORMAL);
     }
+
     void renderErrorMsg(String errorMessage) {
         if (StringUtils.isNotBlank(errorMessage)) {
             System.out.println(ANSII.BACKGROUND_RED + errorMessage + ANSII.NORMAL);
@@ -121,7 +124,7 @@ public class GenericTemplate implements ViewTemplate {
     }
 
     void renderMenu(String menu) {
-        System.out.println(ANSII.BLUE + menu + ANSII.NORMAL +"\n");
+        System.out.println(ANSII.BLUE + menu + ANSII.NORMAL + "\n");
 
     }
 

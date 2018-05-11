@@ -2,6 +2,7 @@ package com.me.poc.service;
 
 import com.me.poc.controller.TransferObject;
 import com.me.poc.controller.View;
+import com.me.poc.exception.UnSupportedRequestParams;
 import com.me.poc.view.ViewMenu;
 import com.me.poc.view.ViewModel;
 
@@ -32,7 +33,21 @@ public class StartService implements ApplicationService {
             transferObjectBuilder.withRedirect(false);
             transferObjectBuilder.withView(View.START);
             transferObjectBuilder.withViewModel(viewModelBuilder.build());
+        }else{
+            if("M1".equalsIgnoreCase(requestParams.get(ViewMenu.INPUT_KEY))){
+                transferObjectBuilder.withRedirect(true);
+                transferObjectBuilder.withView(View.NEW_GAME);
+            }
+
+            else if("M2".equalsIgnoreCase(requestParams.get(ViewMenu.INPUT_KEY))){
+                transferObjectBuilder.withRedirect(true);
+                transferObjectBuilder.withView(View.CONTINUE_GAME);
+            }else{
+                throw new UnSupportedRequestParams();
+            }
         }
+
+
 
         return transferObjectBuilder.build();
     }

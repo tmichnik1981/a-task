@@ -70,6 +70,8 @@ public class GameRepository {
 
 
     public List<String> list() {
+
+        System.out.println("Listing  games for location: " +DEFAULT_LOCATION);
         Path path = Paths.get(DEFAULT_LOCATION);
 
         List<String> filesFound = new ArrayList<>();
@@ -78,12 +80,13 @@ public class GameRepository {
 
                 @Override
                 public FileVisitResult visitFile(Path file, BasicFileAttributes attrs) throws IOException {
-                    String fileString = file.toAbsolutePath().toString();
+                    String fileString = file.getFileName().toString();
+
 
 
                     if(fileString.endsWith(DEFAULT_EXTENSION)){
                         System.out.println("file found at path: " + file.toAbsolutePath());
-                        filesFound.add(fileString);
+                        filesFound.add(fileString.substring(0,fileString.lastIndexOf(DEFAULT_EXTENSION)));
                     }
                     return FileVisitResult.CONTINUE;
                 }
@@ -94,6 +97,13 @@ public class GameRepository {
 
         return filesFound;
     }
+
+    public Game findByName(String name){
+        //TODO: to implement
+        System.out.println("Found  game for name: " +name);
+        return null;
+    }
+
     public Player readPlayer(String fileName) {
 
         Player deserializedPlayer = null;

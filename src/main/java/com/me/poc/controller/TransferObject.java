@@ -1,6 +1,5 @@
 package com.me.poc.controller;
 
-import com.me.poc.domain.Player;
 import com.me.poc.view.ViewModel;
 
 public class TransferObject {
@@ -26,25 +25,27 @@ public class TransferObject {
         this.redirect = builder.redirect;
         this.viewModel = builder.viewModel;
     }
+
     public static TransferObjectBuilder builder() {
         return new TransferObjectBuilder();
     }
 
-    public  static class TransferObjectBuilder{
+    public static class TransferObjectBuilder {
         private View view;
         private boolean redirect;
         private ViewModel viewModel;
 
-        public TransferObjectBuilder withView(View view){
+        public TransferObjectBuilder withView(View view) {
             this.view = view;
             return this;
         }
 
-        public TransferObjectBuilder withRedirect(boolean redirect){
+        public TransferObjectBuilder withRedirect(boolean redirect) {
             this.redirect = redirect;
             return this;
         }
-        public TransferObjectBuilder withViewModel(ViewModel viewModel){
+
+        public TransferObjectBuilder withViewModel(ViewModel viewModel) {
             this.viewModel = viewModel;
             return this;
         }
