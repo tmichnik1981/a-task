@@ -38,6 +38,10 @@ public class GenericTemplate implements ViewTemplate {
 
                 if (viewCommands.isEmpty()) {
                     renderCommand(menu.getLabel());
+                    if (errorMessageBuilder.length() > 0) {
+                        errorMessageBuilder.delete(0, errorMessageBuilder.length() - 1);
+                    }
+
                     String inputValue = inputReader.readLine();
                     if (menu.isMenuCommand(inputValue)) {
                         results.put(menu.getInputKey(), inputValue);
@@ -57,6 +61,10 @@ public class GenericTemplate implements ViewTemplate {
                     String inputValue = results.get(eachCommand.getInputKey());
 
                     if (StringUtils.isBlank(inputValue)) {
+                        if (errorMessageBuilder.length() > 0) {
+                            errorMessageBuilder.delete(0, errorMessageBuilder.length());
+                        }
+
                         inputValue = inputReader.readLine();
 
                         if (menu.isMenuCommand(inputValue)) {
@@ -66,13 +74,10 @@ public class GenericTemplate implements ViewTemplate {
                         Set<ViewCommand.ValidationStatus> validationStatuses = eachCommand.validateInputCommand(inputValue);
                         if (validationStatuses.contains(ViewCommand.ValidationStatus.VALID)) {
                             results.put(eachCommand.getInputKey(), inputValue);
-                            if (errorMessageBuilder.length() > 0) {
-                                errorMessageBuilder.delete(0, errorMessageBuilder.length() - 1);
-                            }
-                            continue;
+
                         } else {
 
-                            validationStatuses.forEach(validationStatus -> errorMessageBuilder.append(validationStatus.getDefaultMessage()).append("\n"));
+                            validationStatuses.forEach(validationStatus -> errorMessageBuilder.append(validationStatus.getDefaultMessage()));
                             break;
                         }
 
@@ -90,40 +95,40 @@ public class GenericTemplate implements ViewTemplate {
     }
 
 
-    void renderCommand(String commandText) {
+    private void renderCommand(String commandText) {
         System.out.println("\n");
         System.out.print(commandText + " " + ANSII.NORMAL);
     }
 
-    void renderUnFormattedText(String text) {
+    private void renderUnFormattedText(String text) {
         if (StringUtils.isNotBlank(text)) {
             System.out.println(text);
         }
     }
 
-    void eraseScreen() {
+    private void eraseScreen() {
         System.out.println(ANSII.ERASE_SCREEN);
     }
 
-    void renderTitle(String title) {
+    private void renderTitle(String title) {
         System.out.println(ANSII.BACKGROUND_CYAN + title + ANSII.NORMAL);
     }
 
-    void renderErrorMsg(String errorMessage) {
+    private void renderErrorMsg(String errorMessage) {
         if (StringUtils.isNotBlank(errorMessage)) {
             System.out.println(ANSII.BACKGROUND_RED + errorMessage + ANSII.NORMAL);
 
         }
     }
 
-    void renderInfoMsg(String infoMessage) {
+    private void renderInfoMsg(String infoMessage) {
         if (StringUtils.isNotBlank(infoMessage)) {
             System.out.println(ANSII.BACKGROUND_GREEN + infoMessage + ANSII.NORMAL);
 
         }
     }
 
-    void renderMenu(String menu) {
+    private void renderMenu(String menu) {
         System.out.println(ANSII.BLUE + menu + ANSII.NORMAL + "\n");
 
     }

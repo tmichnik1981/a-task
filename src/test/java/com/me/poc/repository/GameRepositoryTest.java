@@ -1,6 +1,6 @@
 package com.me.poc.repository;
 
-import com.me.poc.domain.Player;
+import com.me.poc.domain.game.Player;
 import org.junit.FixMethodOrder;
 import org.junit.Test;
 import org.junit.runners.MethodSorters;
@@ -31,7 +31,7 @@ public class GameRepositoryTest {
 
         //when
 
-        boolean result =  repository.savePlayer(player, "bbb");
+        boolean result =  repository.savePlayer(player, "ccc");
 
         //then
         assertThat(result).isTrue();

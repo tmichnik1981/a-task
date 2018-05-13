@@ -32,6 +32,65 @@ tymczasowy stan jest trzymany w pseudosesji
 - GameFactory (produces: Game: level, currentStep, player(name, type, health, attack, defense) )
 - PlayerFactory (produces players characters)
 - EnemyFactory 
-- 
-- ScenarioFactory 
 
+
+Player - Type
+--------------
+- name = String
+- health = 100
+- attack = 1
+- defense = 1
+- regeneration = 1
+- leftHandItem = Item(Weapon/Shield)
+- rightHandItem = Item(Shield/Shield)
+- experience = 0
+- level = 1
+- positionOnMap = Location
+- moveTo(locationId)
+- addExperience(int)
+
+Weapon - Type
+----------------
+- name
+- damage
+- oneHand = true/false
+
+Shield - Type
+--------------
+ - name = String
+ - defense = int
+ - oneHand = true/false
+
+Game - Type
+--------------
+- id = UUID
+- locations = List/Set
+- level = ENUM
+- player = Player
+- dayOfGame = int
+
+Location - Type
+---------------
+- id = UUID
+- name = String
+- description = String
+- status = UnExplored, Danger, Explored
+- type = grassland,road/woods/town/wetlands/castle/start
+
+
+Enemy - Type
+--------------
+- name = String
+- health = 100
+- attack = 1
+- defense = 1
+- experienceToEarn = int
+
+-------------------------------------
+   start
+
+  ? ? ? ?
+
+  ? ? ? ?
+
+  ? ? ? ?

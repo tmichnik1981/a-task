@@ -2,6 +2,7 @@ package com.me.poc.service;
 
 import com.me.poc.controller.TransferObject;
 import com.me.poc.controller.View;
+import com.me.poc.domain.game.Game;
 import com.me.poc.exception.UnSupportedRequestParams;
 import com.me.poc.repository.GameRepository;
 import com.me.poc.view.ViewCommand;
@@ -15,6 +16,7 @@ import java.util.Set;
 
 public class ContinueGameService implements ApplicationService {
     private final GameRepository gameRepository;
+    private final GameCache gameCache;
 
 
     @Override
@@ -24,7 +26,7 @@ public class ContinueGameService implements ApplicationService {
 
         if (requestParams.isEmpty()) {
             ViewModel.ViewModelBuilder viewModelBuilder = ViewModel.builder()
-                .withTitle("Continue saved game");
+                    .withTitle("Continue saved game");
 
             Set<String> allowedValues = new HashSet<>();
             allowedValues.add("M1");
@@ -33,31 +35,28 @@ public class ContinueGameService implements ApplicationService {
             ViewMenu menu = new ViewMenu("BACK (M1) QUIT (Q)", allowedValues);
             viewModelBuilder.withMenu(menu);
 
-
-            ViewCommand.ViewCommandBuilder commandBuilder = ViewCommand.builder();
-
             List<String> savedGames = gameRepository.list();
 
             StringBuilder commandBodyBuilder = new StringBuilder();
             if (savedGames.isEmpty()) {
-                commandBodyBuilder.append("You have no saved games!");
+                viewModelBuilder.withIntro("You have no saved games!");
+
             } else {
                 for (String saveGame : savedGames) {
                     commandBodyBuilder.append("- ").append(saveGame).append("\n");
                 }
+                ViewCommand.ViewCommandBuilder commandBuilder = ViewCommand.builder();
                 commandBuilder
-                    .withTitle("LIST of SAVED GAMES")
-                    .withBody(commandBodyBuilder.toString().trim())
-                    .withRequired(true)
-                    .withLabel("Which game to load? ")
-                    .withAllowedValues(savedGames)
-                    .withInputKey("_saved-game_");
+                        .withTitle("LIST of SAVED GAMES")
+                        .withRequired(true)
+                        .withLabel("Which game to load? ")
+                        .withAllowedValues(savedGames)
+                        .withInputKey("_saved-game_")
+                        .withBody(commandBodyBuilder.toString().trim());
+
 
                 viewModelBuilder.withViewCommand(commandBuilder.build());
-
             }
-
-
 
 
             transferObjectBuilder.withRedirect(false);
@@ -66,8 +65,14 @@ public class ContinueGameService implements ApplicationService {
         } else if (requestParams.containsKey("_saved-game_")) {
             //TODO:load serialized game and save to cache
             //TODO: moze trzeba przekazac id gry???
-            transferObjectBuilder.withRedirect(true);
-            transferObjectBuilder.withView(View.GAME);
+
+
+            Game game = gameRepository.findByName(requestParams.get("_saved-game_"));
+            gameCache.loadGame(game);
+
+            transferObjectBuilder.withTransferParam("gameId", game.getId().toString())
+            .withRedirect(true)
+            .withView(View.GAME);
 
         } else if ("M1".equalsIgnoreCase(requestParams.get(ViewMenu.INPUT_KEY))) {
             transferObjectBuilder.withRedirect(true);
@@ -79,7 +84,8 @@ public class ContinueGameService implements ApplicationService {
         return transferObjectBuilder.build();
     }
 
-    public ContinueGameService(GameRepository gameRepository) {
+    public ContinueGameService(GameRepository gameRepository, GameCache gameCache) {
         this.gameRepository = gameRepository;
+        this.gameCache = gameCache;
     }
 }

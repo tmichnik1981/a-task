@@ -15,8 +15,8 @@ public class ServicesContainer {
 
     {
         services.put(View.START, new StartService());
-        services.put(View.NEW_GAME, new NewGameService());
-        services.put(View.CONTINUE_GAME, new ContinueGameService(new GameRepository()));
+        services.put(View.NEW_GAME, new NewGameService(GameCache.getInstance()));
+        services.put(View.CONTINUE_GAME, new ContinueGameService(new GameRepository(), GameCache.getInstance()));
         services.put(View.GAME, new GameService());
     }
 

@@ -8,6 +8,8 @@ import java.util.HashSet;
 import java.util.Set;
 
 public class ViewCommand {
+    private static final String DEFAULT_LABEL = ">";
+
     private final String title;
     private final String body;
     private final String label;
@@ -57,13 +59,12 @@ public class ViewCommand {
     public Set<ValidationStatus> validateInputCommand(String input) {
 
         Set<ValidationStatus> statuses = new HashSet<>();
-        String notNullInput;
 
         if (required && StringUtils.isBlank(input)) {
             statuses.add(ValidationStatus.NULL_OR_EMPTY);
             return statuses;
         }
-        notNullInput = StringUtils.trimToEmpty(input);
+        String notNullInput = StringUtils.trimToEmpty(input);
 
         if (!allowedValues.isEmpty() && !allowedValues.contains(notNullInput)) {
             statuses.add(ValidationStatus.NOT_ALLOWED);
@@ -88,7 +89,7 @@ public class ViewCommand {
 
         private String title = StringUtils.EMPTY;
         private String body = StringUtils.EMPTY;
-        private String label;
+        private String label = DEFAULT_LABEL;
         private String inputKey;
         private Set<String> allowedValues = new HashSet<>();
         private String regex = StringUtils.EMPTY;
