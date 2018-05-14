@@ -4,6 +4,12 @@ import com.me.poc.util.StringUtils;
 
 public class PlayerFactory {
 
+    static final int LEVEL_3 = 3, LEVEL_2 = 2, LEVEL_1 = 1;
+    static final int HEALTH_300 = 300, HEALTH_200 = 200, HEALTH_100 = 100;
+    static final int EXPERIENCE_300 = 300, EXPERIENCE_200 = 200, EXPERIENCE_100 = 100;
+    static final int ATTACK_SKILL_5 = 5, ATTACK_SKILL_4 = 4, ATTACK_SKILL_3 = 3, ATTACK_SKILL_2 = 2, ATTACK_SKILL_1 = 1;
+    static final int DEFENSE_SKILL_5 = 5, DEFENSE_SKILL_4 = 4, DEFENSE_SKILL_3 = 3, DEFENSE_SKILL_2 = 2, DEFENSE_SKILL_1 = 1;
+
     public Player create(DifficultyLevel level, String characterName, PlayerType type) {
 
         validateInput(level, characterName, type);
@@ -15,26 +21,26 @@ public class PlayerFactory {
 
         switch (level) {
             case NOVICE:
-                playerBuilder.withLevel(3)
-                        .withHealth(300)
+                playerBuilder.withLevel(LEVEL_3)
+                        .withHealth(HEALTH_300)
                         .withAttack(resolveAttackSkills(level, type))
                         .withDefense(resolveDefenseSkills(level, type))
-                        .withExperience(300);
+                        .withExperience(EXPERIENCE_300);
                 break;
             case MEDIUM:
-                playerBuilder.withLevel(2)
-                        .withHealth(200)
+                playerBuilder.withLevel(LEVEL_2)
+                        .withHealth(HEALTH_200)
                         .withAttack(resolveAttackSkills(level, type))
                         .withDefense(resolveDefenseSkills(level, type))
-                        .withExperience(200);
+                        .withExperience(EXPERIENCE_200);
                 break;
             case ADVANCED:
 
-                playerBuilder.withLevel(1)
-                        .withHealth(100)
+                playerBuilder.withLevel(LEVEL_1)
+                        .withHealth(HEALTH_100)
                         .withAttack(resolveAttackSkills(level, type))
                         .withDefense(resolveDefenseSkills(level, type))
-                        .withExperience(100);
+                        .withExperience(EXPERIENCE_100);
                 break;
         }
 
@@ -58,11 +64,11 @@ public class PlayerFactory {
 
         switch (level) {
             case NOVICE:
-                return PlayerType.FIGHTER.equals(type) ? 5 : 3;
+                return PlayerType.FIGHTER.equals(type) ? ATTACK_SKILL_5 : ATTACK_SKILL_3;
             case MEDIUM:
-                return PlayerType.FIGHTER.equals(type) ? 4 : 2;
+                return PlayerType.FIGHTER.equals(type) ? ATTACK_SKILL_4 : ATTACK_SKILL_2;
             case ADVANCED:
-                return PlayerType.FIGHTER.equals(type) ? 3 : 1;
+                return PlayerType.FIGHTER.equals(type) ? ATTACK_SKILL_3 : ATTACK_SKILL_1;
 
 
         }
@@ -75,11 +81,11 @@ public class PlayerFactory {
 
         switch (level) {
             case NOVICE:
-                return PlayerType.MAGE.equals(type) ? 5 : 3;
+                return PlayerType.MAGE.equals(type) ? DEFENSE_SKILL_5 : DEFENSE_SKILL_3;
             case MEDIUM:
-                return PlayerType.MAGE.equals(type) ? 4 : 2;
+                return PlayerType.MAGE.equals(type) ? DEFENSE_SKILL_4 : DEFENSE_SKILL_2;
             case ADVANCED:
-                return PlayerType.MAGE.equals(type) ? 3 : 1;
+                return PlayerType.MAGE.equals(type) ? DEFENSE_SKILL_3 : DEFENSE_SKILL_1;
 
 
         }

@@ -1,6 +1,6 @@
 package com.me.poc.domain.game;
 
-import com.me.poc.domain.location.MapFactory;
+import com.me.poc.domain.location.GameMapFactory;
 import org.junit.Rule;
 import org.junit.Test;
 import org.junit.rules.ExpectedException;
@@ -14,8 +14,8 @@ public class GameFactoryTest {
     @Rule
     public ExpectedException exception = ExpectedException.none();
     private PlayerFactory playerFactory = mock(PlayerFactory.class);
-    private MapFactory mapFactory = mock(MapFactory.class);
-    private GameFactory gameFactory = new GameFactory(playerFactory, mapFactory);
+    private GameMapFactory gameMapFactory = mock(GameMapFactory.class);
+    private GameFactory gameFactory = new GameFactory(playerFactory, gameMapFactory);
 
     @Test
     public void shouldCreateNoviceLevelGame() {
@@ -34,7 +34,7 @@ public class GameFactoryTest {
         assertThat(resultGame.getDayOfGame()).isEqualTo(expectedStartDay);
 
         verify(playerFactory).create(level, characterName, PlayerType.FIGHTER);
-        verify(mapFactory).create(level);
+        verify(gameMapFactory).create(level);
     }
 
     @Test
@@ -54,7 +54,7 @@ public class GameFactoryTest {
         assertThat(resultGame.getDayOfGame()).isEqualTo(expectedStartDay);
 
         verify(playerFactory).create(level, characterName, PlayerType.FIGHTER);
-        verify(mapFactory).create(level);
+        verify(gameMapFactory).create(level);
 
     }
 

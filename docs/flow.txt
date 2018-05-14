@@ -74,7 +74,7 @@ Location - Type
 - id = UUID
 - name = String
 - description = String
-- status = UnExplored, Danger, Explored
+- status = UnExplored,  Explored
 - type = grassland,road/woods/town/wetlands/castle/start
 
 
@@ -89,8 +89,10 @@ Enemy - Type
 -------------------------------------
    start
 
-  ? ? ? ?
+  ? -- ? -- ? -- ?
 
-  ? ? ? ?
+  | \      /
+     \
+  ? -- ? ? ?
 
   ? ? ? ?

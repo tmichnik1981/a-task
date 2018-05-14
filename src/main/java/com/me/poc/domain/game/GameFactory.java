@@ -1,7 +1,7 @@
 package com.me.poc.domain.game;
 
 import com.me.poc.domain.location.GameMap;
-import com.me.poc.domain.location.MapFactory;
+import com.me.poc.domain.location.GameMapFactory;
 import com.me.poc.util.StringUtils;
 
 
@@ -10,11 +10,11 @@ import java.util.UUID;
 public class GameFactory {
 
     private final PlayerFactory playerFactory;
-    private final MapFactory mapFactory;
+    private final GameMapFactory gameMapFactory;
 
-    public GameFactory(PlayerFactory playerFactory, MapFactory mapFactory) {
+    public GameFactory(PlayerFactory playerFactory, GameMapFactory gameMapFactory) {
         this.playerFactory = playerFactory;
-        this.mapFactory = mapFactory;
+        this.gameMapFactory = gameMapFactory;
 
     }
 
@@ -24,7 +24,7 @@ public class GameFactory {
 
         Player player = playerFactory.create(level, characterName, type);
 
-        GameMap gameMap = mapFactory.create(level);
+        GameMap gameMap = gameMapFactory.create(level);
 
         return Game.builder()
                 .withDifficultyLevel(level)
