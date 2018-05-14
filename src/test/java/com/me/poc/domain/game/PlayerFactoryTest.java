@@ -4,6 +4,8 @@ import org.junit.Rule;
 import org.junit.Test;
 import org.junit.rules.ExpectedException;
 
+import static org.assertj.core.api.Assertions.assertThat;
+
 public class PlayerFactoryTest {
 
     @Rule
@@ -13,8 +15,22 @@ public class PlayerFactoryTest {
     @Test
     public void shouldCreateNewFighterForNoviceLevel() {
         //given
+        DifficultyLevel level = DifficultyLevel.NOVICE;
+        String characterName = "He-Man";
+        PlayerType playerType = PlayerType.FIGHTER;
+
         //when
+        Player createdPlayer = playerFactory.create(level, characterName, playerType);
+
         //then
+        assertThat(createdPlayer).isNotNull().isInstanceOf(Fighter.class);
+        Fighter fighter = (Fighter) createdPlayer;
+        assertThat(fighter.getAttack()).isEqualTo(5);
+        assertThat(fighter.getDefense()).isEqualTo(3);
+        assertThat(fighter.getExperience()).isEqualTo(300);
+        assertThat(fighter.getHealth()).isEqualTo(300);
+        assertThat(fighter.getLevel()).isEqualTo(3);
+        assertThat(fighter.getName()).isEqualTo(characterName);
     }
 
     @Test

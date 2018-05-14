@@ -20,12 +20,14 @@ public class PlayerFactory {
                         .withAttack(resolveAttackSkills(level, type))
                         .withDefense(resolveDefenseSkills(level, type))
                         .withExperience(300);
+                break;
             case MEDIUM:
                 playerBuilder.withLevel(2)
                         .withHealth(200)
                         .withAttack(resolveAttackSkills(level, type))
                         .withDefense(resolveDefenseSkills(level, type))
                         .withExperience(200);
+                break;
             case ADVANCED:
 
                 playerBuilder.withLevel(1)
@@ -33,7 +35,7 @@ public class PlayerFactory {
                         .withAttack(resolveAttackSkills(level, type))
                         .withDefense(resolveDefenseSkills(level, type))
                         .withExperience(100);
-
+                break;
         }
 
 
