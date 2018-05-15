@@ -24,7 +24,7 @@ public class GameFactory {
 
         Player player = playerFactory.create(level, characterName, type);
 
-        GameMap gameMap = gameMapFactory.create(level);
+        GameMap gameMap = gameMapFactory.create();
 
         return Game.builder()
                 .withDifficultyLevel(level)

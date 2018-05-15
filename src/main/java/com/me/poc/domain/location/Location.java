@@ -4,16 +4,12 @@ import java.io.Serializable;
 
 import static com.me.poc.domain.location.LocationStatus.UNEXPLORED;
 
-public class Location implements Serializable{
+public abstract class Location implements Serializable {
 
-    private String code;
-    private String name;
-    private String description;
-    private LocationStatus status;
+    protected String name;
+    protected String description;
+    protected LocationStatus status;
 
-    public String getCode() {
-        return code;
-    }
 
     public String getName() {
         return name;
@@ -31,7 +27,6 @@ public class Location implements Serializable{
         this.name = locationBuilder.name;
         this.description = locationBuilder.description;
         this.status = locationBuilder.status;
-        this.code = locationBuilder.code;
     }
 
     public static LocationBuilder builder() {
@@ -39,15 +34,11 @@ public class Location implements Serializable{
     }
 
     public static class LocationBuilder {
-        private String code;
+        private LocationType type;
         private String name;
         private String description;
         private LocationStatus status = UNEXPLORED;
 
-        public LocationBuilder withCode(String code) {
-            this.code = code;
-            return this;
-        }
 
         public LocationBuilder withName(String name) {
             this.name = name;
@@ -64,11 +55,39 @@ public class Location implements Serializable{
             return this;
         }
 
-
-        public Location build() {
-            return new Location(this);
+        public LocationBuilder withType(LocationType type) {
+            this.type = type;
+            return this;
         }
 
+        public Location build() {
+
+            switch (type) {
+                case ROAD:
+                    return new Road(this);
+                case TOWN:
+                    return new Town(this);
+                case GRASSLAND:
+                    return new Grassland(this);
+                case SETTLEMENT:
+                    return new Settlement(this);
+                case START:
+                    return new Start(this);
+                case WOODS:
+                    return new Woods(this);
+                case WETLANDS:
+                    return new Wetlands(this);
+            }
+            throw new RuntimeException("Cannot create a Location");
+        }
+
+
+        public void clear() {
+            LocationType type = null;
+            String name = "";
+            String description ="";
+            LocationStatus status = UNEXPLORED;
+        }
     }
 
 }

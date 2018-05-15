@@ -98,14 +98,14 @@ Enemy - Type
   ? ? ? ?
 
 
-  code | name | description | parent | vertical_rel
+  code | name | description |
   ----------------------------------------------------------
-  loc1 | aaa  | aaaaaaaaa	  |
-  loc2 | bbb  | bbbbbbbbb	  |
-  loc3 | ccc  | bbbbbbbbb	  |
-  loc4 | ddd  | bbbbbbbbb	  |
-  loc5 | eee  | bbbbbbbbb	  |
+  loc1 | aaa  | aaaaaaaaa	|
+  loc2 | bbb  | bbbbbbbbb	|
+  loc3 | ccc  | bbbbbbbbb	|
+  loc4 | ddd  | bbbbbbbbb	|
+  loc5 | eee  | bbbbbbbbb	|
 
-   O
+   o
   /|\
   / \

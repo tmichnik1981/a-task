@@ -34,7 +34,7 @@ public class GameFactoryTest {
         assertThat(resultGame.getDayOfGame()).isEqualTo(expectedStartDay);
 
         verify(playerFactory).create(level, characterName, PlayerType.FIGHTER);
-        verify(gameMapFactory).create(level);
+        verify(gameMapFactory).create();
     }
 
     @Test
@@ -54,7 +54,7 @@ public class GameFactoryTest {
         assertThat(resultGame.getDayOfGame()).isEqualTo(expectedStartDay);
 
         verify(playerFactory).create(level, characterName, PlayerType.FIGHTER);
-        verify(gameMapFactory).create(level);
+        verify(gameMapFactory).create();
 
     }
 
