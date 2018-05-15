@@ -96,3 +96,16 @@ Enemy - Type
   ? -- ? ? ?
 
   ? ? ? ?
+
+
+  code | name | description | parent | vertical_rel
+  ----------------------------------------------------------
+  loc1 | aaa  | aaaaaaaaa	  |
+  loc2 | bbb  | bbbbbbbbb	  |
+  loc3 | ccc  | bbbbbbbbb	  |
+  loc4 | ddd  | bbbbbbbbb	  |
+  loc5 | eee  | bbbbbbbbb	  |
+
+   O
+  /|\
+  / \
