@@ -5,9 +5,7 @@ import org.junit.Test;
 
 import java.io.FileNotFoundException;
 import java.net.URISyntaxException;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
+import java.util.*;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.mockito.BDDMockito.given;
@@ -25,7 +23,7 @@ public class GameMapFactoryTest {
     public void shouldCreateMap() throws FileNotFoundException, URISyntaxException {
 
         //given
-        List<Location> locations = new ArrayList<>(2);
+        Set<Location> locations = new HashSet<>(2);
         Location.LocationBuilder builder = Location.builder();
         builder.withName("aaa")
                 .withDescription("aaa-desc")

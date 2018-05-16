@@ -1,6 +1,7 @@
 package com.me.poc.domain.location;
 
 import java.io.Serializable;
+import java.util.Objects;
 
 import static com.me.poc.domain.location.LocationStatus.UNEXPLORED;
 
@@ -27,6 +28,22 @@ public abstract class Location implements Serializable {
         this.name = locationBuilder.name;
         this.description = locationBuilder.description;
         this.status = locationBuilder.status;
+    }
+
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Location location = (Location) o;
+        return Objects.equals(name, location.name) &&
+                Objects.equals(description, location.description);
+    }
+
+    @Override
+    public int hashCode() {
+
+        return Objects.hash(name, description);
     }
 
     public static LocationBuilder builder() {
