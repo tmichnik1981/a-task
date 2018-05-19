@@ -1,6 +1,6 @@
 package com.me.poc.repository;
 
-import com.me.poc.domain.game.Player;
+import com.me.poc.domain.game.player.Player;
 import org.junit.FixMethodOrder;
 import org.junit.Test;
 import org.junit.runners.MethodSorters;

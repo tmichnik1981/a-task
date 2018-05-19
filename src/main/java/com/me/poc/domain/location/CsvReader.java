@@ -11,11 +11,11 @@ public class CsvReader {
 
     private static final String DEFAULT_DELIMITER = ",";
 
-    public Set<Location> readFile(String fileName) throws URISyntaxException, FileNotFoundException {
+    public List<Location> readFile(String fileName) throws URISyntaxException, FileNotFoundException {
 
         Location.LocationBuilder builder = Location.builder();
 
-        Set<Location> locations = new HashSet<>();
+        List<Location> locations = new LinkedList<>();
         try (Scanner lineScanner = new Scanner(new File(GameMapFactory.class.getClassLoader().getResource(fileName).toURI()))) {
 
             while (lineScanner.hasNextLine()) {

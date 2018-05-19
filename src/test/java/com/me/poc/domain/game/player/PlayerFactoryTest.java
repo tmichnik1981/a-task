@@ -1,5 +1,6 @@
-package com.me.poc.domain.game;
+package com.me.poc.domain.game.player;
 
+import com.me.poc.domain.game.DifficultyLevel;
 import org.junit.Rule;
 import org.junit.Test;
 import org.junit.rules.ExpectedException;

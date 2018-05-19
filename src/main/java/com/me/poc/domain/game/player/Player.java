@@ -1,4 +1,4 @@
-package com.me.poc.domain.game;
+package com.me.poc.domain.game.player;
 
 import java.io.Serializable;
 

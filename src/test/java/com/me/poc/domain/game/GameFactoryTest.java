@@ -1,6 +1,8 @@
 package com.me.poc.domain.game;
 
 import com.me.poc.domain.location.GameMapFactory;
+import com.me.poc.domain.game.player.PlayerFactory;
+import com.me.poc.domain.game.player.PlayerType;
 import org.junit.Rule;
 import org.junit.Test;
 import org.junit.rules.ExpectedException;
@@ -13,6 +15,7 @@ public class GameFactoryTest {
 
     @Rule
     public ExpectedException exception = ExpectedException.none();
+
     private PlayerFactory playerFactory = mock(PlayerFactory.class);
     private GameMapFactory gameMapFactory = mock(GameMapFactory.class);
     private GameFactory gameFactory = new GameFactory(playerFactory, gameMapFactory);

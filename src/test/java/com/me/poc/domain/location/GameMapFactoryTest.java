@@ -1,11 +1,13 @@
 package com.me.poc.domain.location;
 
-import com.me.poc.domain.game.DifficultyLevel;
 import org.junit.Test;
 
 import java.io.FileNotFoundException;
 import java.net.URISyntaxException;
-import java.util.*;
+import java.util.Arrays;
+import java.util.LinkedList;
+import java.util.List;
+import java.util.stream.Collectors;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.mockito.BDDMockito.given;
@@ -23,17 +25,23 @@ public class GameMapFactoryTest {
     public void shouldCreateMap() throws FileNotFoundException, URISyntaxException {
 
         //given
-        Set<Location> locations = new HashSet<>(2);
+        List<Location> locations = new LinkedList<>();
         Location.LocationBuilder builder = Location.builder();
         builder.withName("aaa")
                 .withDescription("aaa-desc")
-                .withType(LocationType.GRASSLAND)
+                .withType(LocationType.SETTLEMENT)
                 .withLocationStatus(LocationStatus.UNKNOWN);
         locations.add(builder.build());
 
         builder.clear();
         builder.withName("bbb")
                 .withDescription("bbb-desc")
+                .withType(LocationType.TOWN);
+        locations.add(builder.build());
+
+        builder.clear();
+        builder.withName("ccc")
+                .withDescription("ccc-desc")
                 .withType(LocationType.TOWN);
         locations.add(builder.build());
 
@@ -44,5 +52,18 @@ public class GameMapFactoryTest {
 
         //then
         assertThat(gameMap).isNotNull();
+        Location[][] locationMap =  gameMap.getLocationsMap();
+        assertThat(locationMap)
+                .isNotNull().isNotEmpty().doesNotContainNull().hasSize(GameMapFactory.rows);
+
+        assertThat(locationMap[0]).isNotNull().isNotEmpty().doesNotContainNull().hasSize(GameMapFactory.cols);
+        assertThat(locationMap[1]).isNotNull().isNotEmpty().doesNotContainNull();
+        assertThat(locationMap[2]).isNotNull().isNotEmpty().doesNotContainNull();
+        assertThat(locationMap[3]).isNotNull().isNotEmpty().doesNotContainNull();
+        assertThat(locationMap[4]).isNotNull().isNotEmpty().doesNotContainNull();
+
+        List<Location> flatLocationMap = Arrays.stream(locationMap).flatMap(Arrays::stream).collect(Collectors.toList());
+
+        assertThat(flatLocationMap).contains(locations.get(0),locations.get(1),locations.get(2));
     }
 }

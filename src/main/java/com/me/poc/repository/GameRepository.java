@@ -1,7 +1,7 @@
 package com.me.poc.repository;
 
 import com.me.poc.domain.game.Game;
-import com.me.poc.domain.game.Player;
+import com.me.poc.domain.game.player.Player;
 
 import java.io.FileInputStream;
 import java.io.FileOutputStream;

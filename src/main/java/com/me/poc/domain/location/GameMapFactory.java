@@ -10,6 +10,8 @@ public class GameMapFactory {
     static final String LOCATION_SOURCE_FILE = "locations.csv";
     static final int rows = 5;
     static final int cols = 6;
+    static final int STARTING_LOCATION_ROW = 0;
+    static final int STARTING_LOCATION_COL = 2;
 
     private static final int EXTRA_STARTING_LOCATION = 1;
 
@@ -22,19 +24,14 @@ public class GameMapFactory {
 
     public GameMap create() {
 
-        Set<Location> loadedLocations = loadLocations();
-
-        int maxLocationsNumber = rows * cols;
-
-        int numberToGenerate = maxLocationsNumber - loadedLocations.size();
-
+        List<Location> loadedLocations = loadLocations();
 
         Location[][] locationsMatrix = fillLocationsMatrix(loadedLocations);
 
         return new GameMap(locationsMatrix);
     }
 
-    private Location[][] fillLocationsMatrix(Set<Location> loadedLocations) {
+    private Location[][] fillLocationsMatrix(List<Location> loadedLocations) {
 
         int maxLocationsNumber = rows * cols;
         int lackingLocationsNumber = maxLocationsNumber - (loadedLocations.size() + EXTRA_STARTING_LOCATION);
@@ -42,31 +39,32 @@ public class GameMapFactory {
         List<Location> locationList = new ArrayList<>(loadedLocations);
 
         if (lackingLocationsNumber > 0) {
-            locationList.addAll(generateLackingLocations(lackingLocationsNumber, LocationType.GRASSLAND, LocationType.WOODS));
+            locationList.addAll(generateLackingLocations(lackingLocationsNumber));
         }
-
-
-        Location startingLocation = Location.builder()
-                .withName("Start of a game")
-                .withDescription("Start of a game")
-                .withType(LocationType.START)
-                .withLocationStatus(LocationStatus.EXPLORED)
-                .build();
-
 
         Location[][] locationsMatrix = new Location[rows][cols];
 
-        locationsMatrix[0][0] = startingLocation;
+        locationsMatrix[STARTING_LOCATION_ROW][STARTING_LOCATION_COL] = new Start();
+
         Random random = new Random();
+        Set<Integer> uniqueDrawNumbers = new HashSet<>();
 
         for (int row = 0; row < rows; ++row) {
 
-            for (int col = 1; col < cols; ++col) {
+            for (int col = 0; col < cols; ++col) {
 
-                //TODO: dodac petle i sprawdzenie czy wylosowana liczba sie nie powtarza
-                int drawLocationIndex = random.nextInt(locationList.size());
+                if (locationsMatrix[row][col] == null)
+                    while (true) {
+                        int drawLocationIndex = random.nextInt(locationList.size());
+                        if (!uniqueDrawNumbers.contains(drawLocationIndex)) {
+                            uniqueDrawNumbers.add(drawLocationIndex);
+                            locationsMatrix[row][col] = locationList.get(drawLocationIndex);
+                            break;
 
-                locationsMatrix[row][col] = locationList.get(drawLocationIndex);
+                        }
+                    }
+
+
             }
 
         }
@@ -75,12 +73,26 @@ public class GameMapFactory {
 
     }
 
-    private Collection<? extends Location> generateLackingLocations(int lackingLocationsNumber, LocationType... woods) {
-        //TODO:to implement
-        return null;
+    private List<Location> generateLackingLocations(int lackingLocationsNumber) {
+
+        List<LocationType> locationTypes = Arrays.asList(LocationType.GRASSLAND, LocationType.WOODS, LocationType.WETLANDS);
+        int max = locationTypes.size();
+
+        Random random = new Random();
+        int counter = 0;
+        List<Location> lackingLocations = new LinkedList<>();
+        while (counter < lackingLocationsNumber) {
+
+            int index = random.nextInt(max);
+            lackingLocations.add(Location.ofLocationType(locationTypes.get(index)));
+            ++counter;
+        }
+
+        return lackingLocations;
     }
 
-    private Set<Location> loadLocations() {
+
+    private List<Location> loadLocations() {
 
         try {
             return csvReader.readFile(LOCATION_SOURCE_FILE);

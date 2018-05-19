@@ -1,6 +1,8 @@
 package com.me.poc.domain.location;
 
-public class GameMap {
+import java.io.Serializable;
+
+public class GameMap implements Serializable{
     private final Location[][] locationsMap;
 
 
@@ -8,5 +10,7 @@ public class GameMap {
         this.locationsMap = locationsMap;
     }
 
-
+    public Location[][] getLocationsMap() {
+        return locationsMap;
+    }
 }

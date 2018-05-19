@@ -1,5 +1,6 @@
-package com.me.poc.domain.game;
+package com.me.poc.domain.game.player;
 
+import com.me.poc.domain.game.DifficultyLevel;
 import com.me.poc.util.StringUtils;
 
 public class PlayerFactory {

@@ -1,4 +1,4 @@
-package com.me.poc.domain.game;
+package com.me.poc.domain.game.player;
 
 public class Fighter extends Player {
     public Fighter(PlayerBuilder playerBuilder) {

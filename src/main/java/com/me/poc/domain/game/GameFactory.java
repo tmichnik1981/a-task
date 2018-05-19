@@ -2,6 +2,9 @@ package com.me.poc.domain.game;
 
 import com.me.poc.domain.location.GameMap;
 import com.me.poc.domain.location.GameMapFactory;
+import com.me.poc.domain.game.player.Player;
+import com.me.poc.domain.game.player.PlayerFactory;
+import com.me.poc.domain.game.player.PlayerType;
 import com.me.poc.util.StringUtils;
 
 

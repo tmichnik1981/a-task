@@ -1,16 +1,20 @@
 package com.me.poc.domain.location;
 
 import java.io.Serializable;
-import java.util.Objects;
 
 import static com.me.poc.domain.location.LocationStatus.UNEXPLORED;
 
 public abstract class Location implements Serializable {
 
-    protected String name;
-    protected String description;
-    protected LocationStatus status;
+    private final String name;
+    private final String description;
+    private final LocationStatus status;
 
+    public Location(String name, String description, LocationStatus status) {
+        this.name = name;
+        this.description = description;
+        this.status = status;
+    }
 
     public String getName() {
         return name;
@@ -31,19 +35,22 @@ public abstract class Location implements Serializable {
     }
 
 
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-        Location location = (Location) o;
-        return Objects.equals(name, location.name) &&
-                Objects.equals(description, location.description);
-    }
-
-    @Override
-    public int hashCode() {
-
-        return Objects.hash(name, description);
+    public static Location ofLocationType(LocationType locationType) {
+        switch (locationType) {
+            case TOWN:
+                return new Town();
+            case GRASSLAND:
+                return new Grassland();
+            case SETTLEMENT:
+                return new Settlement();
+            case START:
+                return new Start();
+            case WOODS:
+                return new Woods();
+            case WETLANDS:
+                return new Wetlands();
+        }
+        throw new RuntimeException("Cannot create a Location");
     }
 
     public static LocationBuilder builder() {
@@ -80,8 +87,6 @@ public abstract class Location implements Serializable {
         public Location build() {
 
             switch (type) {
-                case ROAD:
-                    return new Road(this);
                 case TOWN:
                     return new Town(this);
                 case GRASSLAND:
@@ -102,7 +107,7 @@ public abstract class Location implements Serializable {
         public void clear() {
             LocationType type = null;
             String name = "";
-            String description ="";
+            String description = "";
             LocationStatus status = UNEXPLORED;
         }
     }
