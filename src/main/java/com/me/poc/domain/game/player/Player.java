@@ -1,15 +1,22 @@
 package com.me.poc.domain.game.player;
 
 import java.io.Serializable;
+import java.util.UUID;
 
 public abstract class Player implements Serializable {
 
-    protected String name;
-    protected int health;
-    protected int attack;
-    protected int defense;
-    protected int experience;
-    protected int level;
+
+    private UUID id;
+    private String name;
+    private int health;
+    private int attack;
+    private int defense;
+    private int experience;
+    private int level;
+
+    public UUID getId() {
+        return id;
+    }
 
     public String getName() {
         return name;
@@ -36,6 +43,8 @@ public abstract class Player implements Serializable {
         return level;
     }
 
+
+
     Player(PlayerBuilder playerBuilder) {
         this.name = playerBuilder.name;
         this.health = playerBuilder.health;
@@ -43,6 +52,7 @@ public abstract class Player implements Serializable {
         this.defense = playerBuilder.defense;
         this.experience = playerBuilder.experience;
         this.level = playerBuilder.level;
+        this.id = UUID.randomUUID();
     }
 
     public static PlayerBuilder builder() {
@@ -58,7 +68,6 @@ public abstract class Player implements Serializable {
         private int experience;
         private int level;
         private PlayerType playerType;
-
 
         public PlayerBuilder withName(String name) {
             this.name = name;

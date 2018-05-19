@@ -1,6 +1,6 @@
 package com.me.poc.domain.game;
 
-import com.me.poc.domain.location.GameMap;
+import com.me.poc.domain.game.gamemap.location.Location;
 import com.me.poc.domain.game.player.Player;
 
 import java.io.Serializable;
@@ -10,11 +10,11 @@ public class Game implements Serializable {
 
     static final int FIRST_DAY = 1;
 
-    private UUID id;
-    private DifficultyLevel level;
-    private Player player;
-    private GameMap map;
+    private final UUID id;
+    private final DifficultyLevel level;
+    private final Player player;
     private int dayOfGame;
+    private final Location[][] gameMap;
 
     public UUID getId() {
         return id;
@@ -28,8 +28,8 @@ public class Game implements Serializable {
         return player;
     }
 
-    public GameMap getMap() {
-        return map;
+    public Location[][] getGameMap() {
+        return gameMap;
     }
 
     public int getDayOfGame() {
@@ -40,8 +40,8 @@ public class Game implements Serializable {
         this.id = builder.id;
         this.level = builder.level;
         this.player = builder.player;
-        this.map = builder.map;
         this.dayOfGame = builder.dayOfGame;
+        this.gameMap = builder.gameMap;
     }
 
     public static GameBuilder builder() {
@@ -52,7 +52,7 @@ public class Game implements Serializable {
         private UUID id;
         private DifficultyLevel level;
         private Player player;
-        private GameMap map;
+        private Location[][] gameMap;
         private int dayOfGame = FIRST_DAY;
 
         public GameBuilder withId(UUID id) {
@@ -75,8 +75,8 @@ public class Game implements Serializable {
             return this;
         }
 
-        public GameBuilder withGameMap(GameMap map) {
-            this.map = map;
+        public GameBuilder withGameMap(Location[][] gameMap) {
+            this.gameMap = gameMap;
             return this;
         }
 

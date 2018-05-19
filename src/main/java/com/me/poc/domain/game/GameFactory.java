@@ -1,12 +1,11 @@
 package com.me.poc.domain.game;
 
-import com.me.poc.domain.location.GameMap;
-import com.me.poc.domain.location.GameMapFactory;
+import com.me.poc.domain.game.gamemap.GameMapFactory;
+import com.me.poc.domain.game.gamemap.location.Location;
 import com.me.poc.domain.game.player.Player;
 import com.me.poc.domain.game.player.PlayerFactory;
 import com.me.poc.domain.game.player.PlayerType;
 import com.me.poc.util.StringUtils;
-
 
 import java.util.UUID;
 
@@ -21,13 +20,13 @@ public class GameFactory {
 
     }
 
-    public Game create(DifficultyLevel level, String characterName , PlayerType type) {
+    public Game create(DifficultyLevel level, String characterName, PlayerType type) {
 
         validateInput(level, characterName);
 
         Player player = playerFactory.create(level, characterName, type);
 
-        GameMap gameMap = gameMapFactory.create();
+        Location[][] gameMap = gameMapFactory.create();
 
         return Game.builder()
                 .withDifficultyLevel(level)

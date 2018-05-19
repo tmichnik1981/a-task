@@ -87,25 +87,19 @@ Enemy - Type
 - experienceToEarn = int
 
 -------------------------------------
-   start
+ 1.  start
 
-  ? -- ? -- ? -- ?
+  ?  ?  START  ?  ?  ?
 
-  | \      /
-     \
-  ? -- ? ? ?
+  ?  ?    ?    ?  ?  ?
 
-  ? ? ? ?
+  ?  ?    ?    ?  ?  ?
 
+  ?  ?    ?    ?  ?  ?
 
-  code | name | description |
-  ----------------------------------------------------------
-  loc1 | aaa  | aaaaaaaaa	|
-  loc2 | bbb  | bbbbbbbbb	|
-  loc3 | ccc  | bbbbbbbbb	|
-  loc4 | ddd  | bbbbbbbbb	|
-  loc5 | eee  | bbbbbbbbb	|
+  ?  ?    ?    ?  ?  ?
 
-   o
-  /|\
-  / \
+Akcje:
+- ustawic playera w lokalizacji startowej
+- pozycja startowa zmeinia status na UNEXPLORED -> EXPLORED
+- odkryc sasiednie pozycje UNEXPLORED -> UNKNOWN

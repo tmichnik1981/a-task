@@ -1,11 +1,16 @@
-package com.me.poc.domain.location;
+package com.me.poc.domain.game.gamemap;
 
+
+import com.me.poc.domain.game.gamemap.location.Location;
+import com.me.poc.domain.game.gamemap.location.LocationStatus;
+import com.me.poc.domain.game.gamemap.location.LocationType;
 import org.junit.Test;
 
 import java.io.FileNotFoundException;
 import java.net.URISyntaxException;
 import java.util.Arrays;
 import java.util.LinkedList;
+
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -48,21 +53,20 @@ public class GameMapFactoryTest {
         given(csvReader.readFile(GameMapFactory.LOCATION_SOURCE_FILE)).willReturn(locations);
 
         //when
-        GameMap gameMap = gameMapFactory.create();
+        Location[][] gameMap = gameMapFactory.create();
 
         //then
-        assertThat(gameMap).isNotNull();
-        Location[][] locationMap =  gameMap.getLocationsMap();
-        assertThat(locationMap)
+
+        assertThat(gameMap)
                 .isNotNull().isNotEmpty().doesNotContainNull().hasSize(GameMapFactory.rows);
 
-        assertThat(locationMap[0]).isNotNull().isNotEmpty().doesNotContainNull().hasSize(GameMapFactory.cols);
-        assertThat(locationMap[1]).isNotNull().isNotEmpty().doesNotContainNull();
-        assertThat(locationMap[2]).isNotNull().isNotEmpty().doesNotContainNull();
-        assertThat(locationMap[3]).isNotNull().isNotEmpty().doesNotContainNull();
-        assertThat(locationMap[4]).isNotNull().isNotEmpty().doesNotContainNull();
+        assertThat(gameMap[0]).isNotNull().isNotEmpty().doesNotContainNull().hasSize(GameMapFactory.cols);
+        assertThat(gameMap[1]).isNotNull().isNotEmpty().doesNotContainNull();
+        assertThat(gameMap[2]).isNotNull().isNotEmpty().doesNotContainNull();
+        assertThat(gameMap[3]).isNotNull().isNotEmpty().doesNotContainNull();
+        assertThat(gameMap[4]).isNotNull().isNotEmpty().doesNotContainNull();
 
-        List<Location> flatLocationMap = Arrays.stream(locationMap).flatMap(Arrays::stream).collect(Collectors.toList());
+        List<Location> flatLocationMap = Arrays.stream(gameMap).flatMap(Arrays::stream).collect(Collectors.toList());
 
         assertThat(flatLocationMap).contains(locations.get(0),locations.get(1),locations.get(2));
     }

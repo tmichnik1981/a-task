@@ -1,4 +1,4 @@
-package com.me.poc.domain.location;
+package com.me.poc.domain.game;
 
 import com.me.poc.domain.game.player.Player;
 

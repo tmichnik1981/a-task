@@ -1,11 +1,14 @@
-package com.me.poc.domain.location;
+package com.me.poc.domain.game.gamemap;
+
+import com.me.poc.domain.game.gamemap.location.Location;
+import com.me.poc.domain.game.gamemap.location.LocationType;
+import com.me.poc.domain.game.gamemap.location.Start;
 
 import java.io.IOException;
 import java.net.URISyntaxException;
 import java.util.*;
 
 public class GameMapFactory {
-
 
     static final String LOCATION_SOURCE_FILE = "locations.csv";
     static final int rows = 5;
@@ -22,13 +25,13 @@ public class GameMapFactory {
     }
 
 
-    public GameMap create() {
+    public Location[][]  create() {
 
         List<Location> loadedLocations = loadLocations();
 
         Location[][] locationsMatrix = fillLocationsMatrix(loadedLocations);
 
-        return new GameMap(locationsMatrix);
+        return locationsMatrix;
     }
 
     private Location[][] fillLocationsMatrix(List<Location> loadedLocations) {
@@ -84,7 +87,7 @@ public class GameMapFactory {
         while (counter < lackingLocationsNumber) {
 
             int index = random.nextInt(max);
-            lackingLocations.add(Location.ofLocationType(locationTypes.get(index)));
+            lackingLocations.add(Location.ofType(locationTypes.get(index)));
             ++counter;
         }
 

@@ -3,6 +3,8 @@ package com.me.poc.domain.game.player;
 import com.me.poc.domain.game.DifficultyLevel;
 import com.me.poc.util.StringUtils;
 
+import java.util.UUID;
+
 public class PlayerFactory {
 
     static final int LEVEL_3 = 3, LEVEL_2 = 2, LEVEL_1 = 1;

@@ -1,8 +1,10 @@
-package com.me.poc.domain.location;
+package com.me.poc.domain.game.gamemap;
+
+import com.me.poc.domain.game.gamemap.location.Location;
+import com.me.poc.domain.game.gamemap.location.LocationType;
 
 import java.io.File;
 import java.io.FileNotFoundException;
-import java.io.IOException;
 import java.net.URISyntaxException;
 import java.util.*;
 
@@ -28,6 +30,7 @@ public class CsvReader {
                     builder.withName(dataScanner.next());
                     //col 2
                     builder.withDescription(dataScanner.next());
+
 
                     locations.add(builder.build());
                 }

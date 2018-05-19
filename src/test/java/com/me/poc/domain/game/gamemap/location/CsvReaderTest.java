@@ -1,5 +1,6 @@
-package com.me.poc.domain.location;
+package com.me.poc.domain.game.gamemap.location;
 
+import com.me.poc.domain.game.gamemap.CsvReader;
 import org.assertj.core.api.Condition;
 import org.junit.Test;
 

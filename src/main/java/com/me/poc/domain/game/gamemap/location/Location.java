@@ -1,11 +1,14 @@
-package com.me.poc.domain.location;
+package com.me.poc.domain.game.gamemap.location;
 
 import java.io.Serializable;
+import java.util.Objects;
+import java.util.UUID;
 
-import static com.me.poc.domain.location.LocationStatus.UNEXPLORED;
+import static com.me.poc.domain.game.gamemap.location.LocationStatus.UNEXPLORED;
 
 public abstract class Location implements Serializable {
 
+    private final UUID id;
     private final String name;
     private final String description;
     private final LocationStatus status;
@@ -14,6 +17,11 @@ public abstract class Location implements Serializable {
         this.name = name;
         this.description = description;
         this.status = status;
+        this.id = UUID.randomUUID();
+    }
+
+    public UUID getId() {
+        return id;
     }
 
     public String getName() {
@@ -32,10 +40,11 @@ public abstract class Location implements Serializable {
         this.name = locationBuilder.name;
         this.description = locationBuilder.description;
         this.status = locationBuilder.status;
+        this.id = UUID.randomUUID();
     }
 
 
-    public static Location ofLocationType(LocationType locationType) {
+    public static Location ofType(LocationType locationType) {
         switch (locationType) {
             case TOWN:
                 return new Town();
@@ -50,7 +59,22 @@ public abstract class Location implements Serializable {
             case WETLANDS:
                 return new Wetlands();
         }
-        throw new RuntimeException("Cannot create a Location");
+        throw new RuntimeException("Cannot create a Location of unknown type");
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Location location = (Location) o;
+        return Objects.equals(id, location.id) &&
+                Objects.equals(name, location.name);
+    }
+
+    @Override
+    public int hashCode() {
+
+        return Objects.hash(id, name);
     }
 
     public static LocationBuilder builder() {

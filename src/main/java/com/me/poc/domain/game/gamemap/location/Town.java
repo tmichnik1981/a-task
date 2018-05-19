@@ -1,4 +1,4 @@
-package com.me.poc.domain.location;
+package com.me.poc.domain.game.gamemap.location;
 
 public class Town extends Location {
 

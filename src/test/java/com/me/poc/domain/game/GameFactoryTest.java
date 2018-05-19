@@ -1,6 +1,6 @@
 package com.me.poc.domain.game;
 
-import com.me.poc.domain.location.GameMapFactory;
+import com.me.poc.domain.game.gamemap.GameMapFactory;
 import com.me.poc.domain.game.player.PlayerFactory;
 import com.me.poc.domain.game.player.PlayerType;
 import org.junit.Rule;

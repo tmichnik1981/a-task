@@ -1,4 +1,4 @@
-package com.me.poc.domain.location;
+package com.me.poc.domain.game.gamemap.location;
 
 public enum LocationType {
     START("start"), GRASSLAND("grassland"), ROAD("road"), WOODS("woods"), TOWN("town"), WETLANDS("wetlands"),
