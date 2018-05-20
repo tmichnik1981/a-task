@@ -1,5 +1,6 @@
 package com.me.poc.domain.game;
 
+import com.me.poc.domain.game.gamemap.GameMap;
 import com.me.poc.domain.game.gamemap.GameMapFactory;
 import com.me.poc.domain.game.gamemap.location.Location;
 import com.me.poc.domain.game.player.Player;
@@ -24,9 +25,9 @@ public class GameFactory {
 
         validateInput(level, characterName);
 
-        Player player = playerFactory.create(level, characterName, type);
+        Player player = playerFactory.create(characterName, type);
 
-        Location[][] gameMap = gameMapFactory.create();
+        GameMap gameMap = gameMapFactory.create();
 
         return Game.builder()
                 .withDifficultyLevel(level)

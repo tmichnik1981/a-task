@@ -2,7 +2,6 @@ package com.me.poc.domain.game.gamemap;
 
 import com.me.poc.domain.game.gamemap.location.Location;
 import com.me.poc.domain.game.gamemap.location.LocationType;
-import com.me.poc.domain.game.gamemap.location.Start;
 
 import java.io.IOException;
 import java.net.URISyntaxException;
@@ -11,10 +10,6 @@ import java.util.*;
 public class GameMapFactory {
 
     static final String LOCATION_SOURCE_FILE = "locations.csv";
-    static final int rows = 5;
-    static final int cols = 6;
-    static final int STARTING_LOCATION_ROW = 0;
-    static final int STARTING_LOCATION_COL = 2;
 
     private static final int EXTRA_STARTING_LOCATION = 1;
 
@@ -25,58 +20,25 @@ public class GameMapFactory {
     }
 
 
-    public Location[][]  create() {
+    public GameMap create() {
 
-        List<Location> loadedLocations = loadLocations();
+        List<Location> loadedLocations = loadLocationsFromFile();
 
-        Location[][] locationsMatrix = fillLocationsMatrix(loadedLocations);
+        List<Location> allLocations = new ArrayList<>(loadedLocations);
 
-        return locationsMatrix;
+        allLocations.addAll(generateLackingLocations(loadedLocations.size()));
+
+        GameMap gameMap = new GameMap();
+
+        gameMap.initRandomly(allLocations);
+
+
+        return gameMap;
     }
 
-    private Location[][] fillLocationsMatrix(List<Location> loadedLocations) {
-
-        int maxLocationsNumber = rows * cols;
-        int lackingLocationsNumber = maxLocationsNumber - (loadedLocations.size() + EXTRA_STARTING_LOCATION);
-
-        List<Location> locationList = new ArrayList<>(loadedLocations);
-
-        if (lackingLocationsNumber > 0) {
-            locationList.addAll(generateLackingLocations(lackingLocationsNumber));
-        }
-
-        Location[][] locationsMatrix = new Location[rows][cols];
-
-        locationsMatrix[STARTING_LOCATION_ROW][STARTING_LOCATION_COL] = new Start();
-
-        Random random = new Random();
-        Set<Integer> uniqueDrawNumbers = new HashSet<>();
-
-        for (int row = 0; row < rows; ++row) {
-
-            for (int col = 0; col < cols; ++col) {
-
-                if (locationsMatrix[row][col] == null)
-                    while (true) {
-                        int drawLocationIndex = random.nextInt(locationList.size());
-                        if (!uniqueDrawNumbers.contains(drawLocationIndex)) {
-                            uniqueDrawNumbers.add(drawLocationIndex);
-                            locationsMatrix[row][col] = locationList.get(drawLocationIndex);
-                            break;
-
-                        }
-                    }
-
-
-            }
-
-        }
-
-        return locationsMatrix;
-
-    }
-
-    private List<Location> generateLackingLocations(int lackingLocationsNumber) {
+    private List<Location> generateLackingLocations(int loadedLocationsNumber) {
+        int maxLocationsNumber = GameMap.MAX_ROWS * GameMap.MAX_COLS;
+        int lackingLocationsNumber = maxLocationsNumber - (loadedLocationsNumber + EXTRA_STARTING_LOCATION);
 
         List<LocationType> locationTypes = Arrays.asList(LocationType.GRASSLAND, LocationType.WOODS, LocationType.WETLANDS);
         int max = locationTypes.size();
@@ -95,7 +57,7 @@ public class GameMapFactory {
     }
 
 
-    private List<Location> loadLocations() {
+    private List<Location> loadLocationsFromFile() {
 
         try {
             return csvReader.readFile(LOCATION_SOURCE_FILE);

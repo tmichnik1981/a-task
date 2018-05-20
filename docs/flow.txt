@@ -75,7 +75,7 @@ Location - Type
 - name = String
 - description = String
 - status = UnExplored,  Explored
-- type = grassland,road/woods/town/wetlands/castle/start
+- type = grassland,road/forest/town/wetlands/castle/start
 
 
 Enemy - Type
@@ -87,7 +87,7 @@ Enemy - Type
 - experienceToEarn = int
 
 -------------------------------------
- 1.  start
+ 1. Ruch na pozycje  startową
 
   ?  ?  START  ?  ?  ?
 
@@ -101,5 +101,55 @@ Enemy - Type
 
 Akcje:
 - ustawic playera w lokalizacji startowej
-- pozycja startowa zmeinia status na UNEXPLORED -> EXPLORED
+- pozycja startowa zmienia status na UNEXPLORED -> EXPLORED
 - odkryc sasiednie pozycje UNEXPLORED -> UNKNOWN
+Zwrocic:
+- mozliwe pozycje do wyboru
+!!!Ruch tylko w pionie i poziomie
+
+2. Ruch na pozycje np. [1,2]
+- ustawic playera w lokalizacji [1,2]
+- jesli jest bezpiecznie pozycja [1,2] zmienia status na  EXPLORED
+- odkryc sasiednie pozycje UNEXPLORED -> UNKNOWN
+Zwrocic:
+- mozliwe pozycje do wyboru
+- mozliwosc zapisu
+
+  ?  ?  START  ?  ?  ?
+
+  ?  ?    P    ?  ?  ?
+
+  ?  ?    ?    ?  ?  ?
+
+  ?  ?    ?    ?  ?  ?
+
+  ?  ?    ?    ?  ?  ?
+
+3. Ruch na pozycje np. [1,3] (z wrogami!!!)
+
+  ?  ?  START  ?  ?  ?
+
+  ?  ?    E    P  ?  ?
+
+  ?  ?    ?    ?  ?  ?
+
+  ?  ?    ?    ?  ?  ?
+
+  ?  ?    ?    ?  ?  ?
+
+- ustawic playera w lokalizacji [1,3]
+- pozycja [1,3] zmienia status na  -> UNSAFE
+- nie odkrywać sasiednich pozycji!!!
+- zbudowac obiekt Duel i umiescic w lokalizacji
+
+
+Zwrocic:
+- informacje o przeciwnikach
+- mozliwosc tylko startu
+
+3a Walka
+
+Akcje:
+- wylosowac kto pierwszy ma ruch
+- jeśli przeciwnik to powienien wykonac atak
+- jesli gracz, zwrocic opcje ataku (glowa, tlow, nogi) z prawdopodobienstwem trafienia i potencjalnym damage

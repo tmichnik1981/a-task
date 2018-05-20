@@ -29,8 +29,8 @@ public class CsvReaderTest {
         assertThat(parsedLocation).haveExactly(1, new Condition<>(location -> location instanceof Town && "Testing-town".equalsIgnoreCase(location.getName())
                 && "Town description".equalsIgnoreCase(location.getDescription()), "Read only one Tows"));
 
-        assertThat(parsedLocation).haveExactly(1, new Condition<>(location -> location instanceof Settlement && "Testing-settlement".equalsIgnoreCase(location.getName())
-                && "Settlement description".equalsIgnoreCase(location.getDescription()), "Read only one Settlement"));
+        assertThat(parsedLocation).haveExactly(1, new Condition<>(location -> location instanceof Wetlands && "Testing-wetlands".equalsIgnoreCase(location.getName())
+                && "Wetlands description".equalsIgnoreCase(location.getDescription()), "Read only one Wetlands "));
 
         assertThat(parsedLocation).haveExactly(1, new Condition<>(location -> location instanceof Grassland && "Testing-grass".equalsIgnoreCase(location.getName())
                 && "Grassland description".equalsIgnoreCase(location.getDescription()), "Read only one Grassland"));

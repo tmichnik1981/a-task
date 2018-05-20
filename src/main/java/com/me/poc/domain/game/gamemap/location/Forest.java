@@ -1,17 +1,17 @@
 package com.me.poc.domain.game.gamemap.location;
 
-public class Woods extends Location{
+public class Forest extends Location{
 
     private static final String DEFAULT_NAME = "In the woods";
     private static final String DEFAULT_DESCRIPTION_NAME = "You are entering the woods";
 
 
 
-    public Woods() {
+    public Forest() {
         super(DEFAULT_NAME, DEFAULT_DESCRIPTION_NAME, LocationStatus.UNEXPLORED);
     }
 
-    public Woods(LocationBuilder locationBuilder) {
+    public Forest(LocationBuilder locationBuilder) {
         super(locationBuilder);
     }
 }

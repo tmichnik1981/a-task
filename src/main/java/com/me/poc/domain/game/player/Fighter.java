@@ -5,4 +5,8 @@ public class Fighter extends Player {
         super(playerBuilder);
     }
 
+    public Fighter(String characterName) {
+        super(characterName, PlayerType.FIGHTER);
+    }
 }
+

@@ -1,10 +1,11 @@
 package com.me.poc.domain.game.player;
 
-import com.me.poc.domain.game.DifficultyLevel;
 import org.junit.Rule;
 import org.junit.Test;
 import org.junit.rules.ExpectedException;
 
+import static com.me.poc.domain.game.player.PlayerType.FIGHTER;
+import static com.me.poc.domain.game.player.PlayerType.MAGE;
 import static org.assertj.core.api.Assertions.assertThat;
 
 public class PlayerFactoryTest {
@@ -13,87 +14,45 @@ public class PlayerFactoryTest {
     public ExpectedException exception = ExpectedException.none();
     private PlayerFactory playerFactory = new PlayerFactory();
 
+
     @Test
-    public void shouldCreateNewFighterForNoviceLevel() {
+    public void shouldCreateNewFighter() {
         //given
-        DifficultyLevel level = DifficultyLevel.NOVICE;
         String characterName = "He-Man";
-        PlayerType playerType = PlayerType.FIGHTER;
+        PlayerType playerType = FIGHTER;
 
         //when
-        Player createdPlayer = playerFactory.create(level, characterName, playerType);
+        Player createdPlayer = playerFactory.create(characterName, playerType);
 
         //then
         assertThat(createdPlayer).isNotNull().isInstanceOf(Fighter.class);
         Fighter fighter = (Fighter) createdPlayer;
-        assertThat(fighter.getAttack()).isEqualTo(PlayerFactory.ATTACK_SKILL_5);
-        assertThat(fighter.getDefense()).isEqualTo(PlayerFactory.DEFENSE_SKILL_3);
-        assertThat(fighter.getExperience()).isEqualTo(PlayerFactory.EXPERIENCE_300);
-        assertThat(fighter.getHealth()).isEqualTo(PlayerFactory.HEALTH_300);
-        assertThat(fighter.getLevel()).isEqualTo(PlayerFactory.LEVEL_3);
+        assertThat(fighter.getAttack()).isEqualTo(FIGHTER.getAttack());
+        assertThat(fighter.getDefense()).isEqualTo(FIGHTER.getDefense());
+        assertThat(fighter.getExperience()).isEqualTo(FIGHTER.getExperience());
+        assertThat(fighter.getHealth()).isEqualTo(FIGHTER.getHealth());
+        assertThat(fighter.getLevel()).isEqualTo(FIGHTER.getLevel());
         assertThat(fighter.getName()).isEqualTo(characterName);
     }
 
-    @Test
-    public void shouldCreateNewFighterForAdvancedLevel() {
-        //given
-        DifficultyLevel level = DifficultyLevel.ADVANCED;
-        String characterName = "He-Man";
-        PlayerType playerType = PlayerType.FIGHTER;
-
-        //when
-        Player createdPlayer = playerFactory.create(level, characterName, playerType);
-
-        //then
-        assertThat(createdPlayer).isNotNull().isInstanceOf(Fighter.class);
-        Fighter fighter = (Fighter) createdPlayer;
-        assertThat(fighter.getAttack()).isEqualTo(PlayerFactory.ATTACK_SKILL_3);
-        assertThat(fighter.getDefense()).isEqualTo(PlayerFactory.DEFENSE_SKILL_1);
-        assertThat(fighter.getExperience()).isEqualTo(PlayerFactory.EXPERIENCE_100);
-        assertThat(fighter.getHealth()).isEqualTo(PlayerFactory.HEALTH_100);
-        assertThat(fighter.getLevel()).isEqualTo(PlayerFactory.LEVEL_1);
-        assertThat(fighter.getName()).isEqualTo(characterName);
-    }
 
     @Test
-    public void shouldCreateNewMagForNoviceLevel() {
+    public void shouldCreateNewMag() {
         //given
-        DifficultyLevel level = DifficultyLevel.NOVICE;
         String characterName = "Merlin";
-        PlayerType playerType = PlayerType.MAGE;
+        PlayerType playerType = MAGE;
 
         //when
-        Player createdPlayer = playerFactory.create(level, characterName, playerType);
+        Player createdPlayer = playerFactory.create(characterName, playerType);
 
         //then
         assertThat(createdPlayer).isNotNull().isInstanceOf(Mage.class);
         Mage mage = (Mage) createdPlayer;
-        assertThat(mage.getAttack()).isEqualTo(PlayerFactory.ATTACK_SKILL_3);
-        assertThat(mage.getDefense()).isEqualTo(PlayerFactory.DEFENSE_SKILL_5);
-        assertThat(mage.getExperience()).isEqualTo(PlayerFactory.EXPERIENCE_300);
-        assertThat(mage.getHealth()).isEqualTo(PlayerFactory.HEALTH_300);
-        assertThat(mage.getLevel()).isEqualTo(PlayerFactory.LEVEL_3);
-        assertThat(mage.getName()).isEqualTo(characterName);
-    }
-
-    @Test
-    public void shouldCreateNewMagForAdvancedLevel() {
-        //given
-        DifficultyLevel level = DifficultyLevel.ADVANCED;
-        String characterName = "Merlin";
-        PlayerType playerType = PlayerType.MAGE;
-
-        //when
-        Player createdPlayer = playerFactory.create(level, characterName, playerType);
-
-        //then
-        assertThat(createdPlayer).isNotNull().isInstanceOf(Mage.class);
-        Mage mage = (Mage) createdPlayer;
-        assertThat(mage.getAttack()).isEqualTo(PlayerFactory.ATTACK_SKILL_1);
-        assertThat(mage.getDefense()).isEqualTo(PlayerFactory.DEFENSE_SKILL_3);
-        assertThat(mage.getExperience()).isEqualTo(PlayerFactory.EXPERIENCE_100);
-        assertThat(mage.getHealth()).isEqualTo(PlayerFactory.HEALTH_100);
-        assertThat(mage.getLevel()).isEqualTo(PlayerFactory.LEVEL_1);
+        assertThat(mage.getAttack()).isEqualTo(MAGE.getAttack());
+        assertThat(mage.getDefense()).isEqualTo(MAGE.getDefense());
+        assertThat(mage.getExperience()).isEqualTo(MAGE.getExperience());
+        assertThat(mage.getHealth()).isEqualTo(MAGE.getHealth());
+        assertThat(mage.getLevel()).isEqualTo(MAGE.getLevel());
         assertThat(mage.getName()).isEqualTo(characterName);
     }
 
@@ -102,11 +61,10 @@ public class PlayerFactoryTest {
         //given
         exception.expect(IllegalArgumentException.class);
 
-        DifficultyLevel level = DifficultyLevel.MEDIUM;
         String characterName = "";
 
         //when
-        playerFactory.create(level, characterName, PlayerType.FIGHTER);
+        playerFactory.create(characterName, FIGHTER);
 
         //then
 
@@ -118,28 +76,14 @@ public class PlayerFactoryTest {
         //given
         exception.expect(IllegalArgumentException.class);
 
-        DifficultyLevel level = DifficultyLevel.MEDIUM;
         String characterName = "Warrior 123";
         PlayerType playerType = null;
 
         //when
-        playerFactory.create(level, characterName, playerType);
+        playerFactory.create(characterName, playerType);
 
         //then
     }
 
-    @Test
-    public void shouldThrowExceptionLevelNotProvided() {
-        //given
-        exception.expect(IllegalArgumentException.class);
-        DifficultyLevel level = null;
-        String characterName = "Sir Lancelot";
-
-        //when
-        playerFactory.create(level, characterName, PlayerType.FIGHTER);
-
-        //then
-
-    }
 
 }
