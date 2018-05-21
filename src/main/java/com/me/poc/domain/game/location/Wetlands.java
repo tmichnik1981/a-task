@@ -1,4 +1,4 @@
-package com.me.poc.domain.game.gamemap.location;
+package com.me.poc.domain.game.location;
 
 public class Wetlands extends Location {
 

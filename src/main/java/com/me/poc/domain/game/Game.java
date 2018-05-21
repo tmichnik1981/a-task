@@ -1,11 +1,9 @@
 package com.me.poc.domain.game;
 
-import com.me.poc.domain.game.gamemap.GameMap;
-import com.me.poc.domain.game.gamemap.location.Location;
+import com.me.poc.domain.game.location.LocationStatus;
 import com.me.poc.domain.game.player.Player;
 
 import java.io.Serializable;
-import java.util.List;
 import java.util.UUID;
 
 public class Game implements Serializable {
@@ -17,6 +15,7 @@ public class Game implements Serializable {
     private final Player player;
     private int dayOfGame;
     private final GameMap gameMap;
+
 
 
     public UUID getId() {
@@ -54,6 +53,16 @@ public class Game implements Serializable {
     public void start() {
         gameMap.movePlayerOnStart(player);
     }
+
+    public void movePlayerTo(int x, int y){
+        LocationStatus statusAfterMove =  gameMap.movePlayerTo(x, y);
+    }
+
+    public void rest(){
+        ++dayOfGame;
+        //TODO:implement
+    }
+
 
     static class GameBuilder {
 

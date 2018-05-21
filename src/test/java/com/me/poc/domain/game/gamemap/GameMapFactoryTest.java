@@ -1,9 +1,12 @@
 package com.me.poc.domain.game.gamemap;
 
 
-import com.me.poc.domain.game.gamemap.location.Location;
-import com.me.poc.domain.game.gamemap.location.LocationStatus;
-import com.me.poc.domain.game.gamemap.location.LocationType;
+import com.me.poc.domain.game.CsvReader;
+import com.me.poc.domain.game.GameMap;
+import com.me.poc.domain.game.GameMapFactory;
+import com.me.poc.domain.game.location.Location;
+import com.me.poc.domain.game.location.LocationStatus;
+import com.me.poc.domain.game.location.LocationType;
 import org.junit.Test;
 
 import java.io.FileNotFoundException;

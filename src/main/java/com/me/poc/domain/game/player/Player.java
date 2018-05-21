@@ -1,7 +1,5 @@
 package com.me.poc.domain.game.player;
 
-import com.me.poc.domain.game.gamemap.location.Location;
-
 import java.io.Serializable;
 import java.util.UUID;
 

@@ -1,4 +1,4 @@
-package com.me.poc.domain.game.gamemap.location;
+package com.me.poc.domain.game.location;
 
 import com.me.poc.domain.game.enemy.Enemy;
 import com.me.poc.domain.game.player.Player;
@@ -9,7 +9,7 @@ import java.util.List;
 import java.util.Objects;
 import java.util.UUID;
 
-import static com.me.poc.domain.game.gamemap.location.LocationStatus.UNEXPLORED;
+import static com.me.poc.domain.game.location.LocationStatus.UNEXPLORED;
 
 public abstract class Location implements Serializable {
 
@@ -63,7 +63,7 @@ public abstract class Location implements Serializable {
         if (enemies.isEmpty()) {
             status = LocationStatus.EXPLORED;
         } else {
-            status = LocationStatus.UNSAFE;
+            status = LocationStatus.DUEL;
         }
     }
 

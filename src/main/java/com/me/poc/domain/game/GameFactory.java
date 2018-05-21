@@ -1,8 +1,5 @@
 package com.me.poc.domain.game;
 
-import com.me.poc.domain.game.gamemap.GameMap;
-import com.me.poc.domain.game.gamemap.GameMapFactory;
-import com.me.poc.domain.game.gamemap.location.Location;
 import com.me.poc.domain.game.player.Player;
 import com.me.poc.domain.game.player.PlayerFactory;
 import com.me.poc.domain.game.player.PlayerType;

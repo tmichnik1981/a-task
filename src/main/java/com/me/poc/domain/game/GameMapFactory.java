@@ -1,7 +1,7 @@
-package com.me.poc.domain.game.gamemap;
+package com.me.poc.domain.game;
 
-import com.me.poc.domain.game.gamemap.location.Location;
-import com.me.poc.domain.game.gamemap.location.LocationType;
+import com.me.poc.domain.game.location.Location;
+import com.me.poc.domain.game.location.LocationType;
 
 import java.io.IOException;
 import java.net.URISyntaxException;

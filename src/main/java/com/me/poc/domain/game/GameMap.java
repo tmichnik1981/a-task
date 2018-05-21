@@ -1,8 +1,9 @@
-package com.me.poc.domain.game.gamemap;
+package com.me.poc.domain.game;
 
-import com.me.poc.domain.game.gamemap.location.Location;
-import com.me.poc.domain.game.gamemap.location.LocationStatus;
-import com.me.poc.domain.game.gamemap.location.Start;
+import com.me.poc.domain.game.location.Location;
+import com.me.poc.domain.game.location.LocationStatus;
+import com.me.poc.domain.game.location.Position;
+import com.me.poc.domain.game.location.Start;
 import com.me.poc.domain.game.player.Player;
 
 import java.util.*;
@@ -17,28 +18,51 @@ public class GameMap {
 
     private final Location[][] locationsMatrix = new Location[MAX_ROWS][MAX_COLS];
 
-    private Location lastLocation;
+    private Location currentLocation;
 
-    public Location movePlayerOnStart(Player player) {
+    void movePlayerOnStart(Player player) {
         Location start = locationsMatrix[STARTING_LOCATION_ROW][STARTING_LOCATION_COL];
         start.putPlayer(player);
-        lastLocation = start;
+        currentLocation = start;
         unveilNeighboringLocations(start);
-        return lastLocation;
     }
 
-    public void movePlayerTo(int x, int y) {
-        Player player = lastLocation.removePlayer();
+    LocationStatus movePlayerTo(int x, int y) {
+        Player player = currentLocation.removePlayer();
         Location destination = locationsMatrix[x][y];
-        destination.putPlayer(player);
-        lastLocation = destination;
+        LocationStatus status = destination.putPlayer(player);
+        currentLocation = destination;
 
         unveilNeighboringLocations(destination);
+
+        return status;
     }
 
-    void unveilNeighboringLocations(Location destination) {
+    List<Position> getPossibleMoves() {
+        int row = currentLocation.getRowOnMap();
+        int col = currentLocation.getColOnMap();
 
-        if (!LocationStatus.UNSAFE.equals(destination.getStatus())) {
+        List<Position> positions = new ArrayList<>();
+
+        int[][] modifiers = {{0, 1}, {0, -1}, {1, 0}, {-1, 0}};
+
+        int counter = 0;
+        while (counter < 4) {
+            int rowToTest = row + modifiers[counter][0];
+            int colToTest = col + modifiers[counter][1];
+            if (inDimensions(rowToTest, colToTest)) {
+                positions.add(new Position(rowToTest, colToTest));
+            }
+            counter++;
+        }
+
+        return positions;
+    }
+
+
+    private void unveilNeighboringLocations(Location destination) {
+
+        if (!LocationStatus.DUEL.equals(destination.getStatus())) {
             int row = destination.getRowOnMap();
             int col = destination.getColOnMap();
             getLocation(row, col + 1).ifPresent(Location::unveil);
@@ -50,27 +74,16 @@ public class GameMap {
     }
 
     private Optional<Location> getLocation(int row, int col) {
-        return Optional.ofNullable(locationsMatrix[row][col]);
-    }
-
-    public boolean put(Location location, int x, int y) {
-
-        if (!getLocation(x, y).isPresent()) {
-            locationsMatrix[x][y] = location;
-            location.updatePosition(x, y);
-            return true;
+        if (inDimensions(row, col)) {
+            return Optional.ofNullable(locationsMatrix[row][col]);
         }
-
-        return false;
+        return Optional.empty();
     }
 
-    public Optional<Location> putAndReplace(Location newLocation, int x, int y) {
-
-        Location oldLocation = getLocation(x, y).get();
-        locationsMatrix[x][y] = newLocation;
-        newLocation.updatePosition(x, y);
-        return Optional.ofNullable(oldLocation);
+    private boolean inDimensions(int row, int col) {
+        return (row > 0 && row < MAX_ROWS && col > 0 && col < MAX_COLS);
     }
+
 
     public void initRandomly(List<Location> allLocations) {
 
