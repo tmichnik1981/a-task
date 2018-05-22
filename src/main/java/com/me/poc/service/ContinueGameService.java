@@ -2,7 +2,7 @@ package com.me.poc.service;
 
 import com.me.poc.controller.TransferObject;
 import com.me.poc.controller.View;
-import com.me.poc.domain.game.Game;
+import com.me.poc.domain.Game;
 import com.me.poc.exception.UnSupportedRequestParams;
 import com.me.poc.repository.GameRepository;
 import com.me.poc.view.ViewCommand;

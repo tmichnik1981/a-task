@@ -1,7 +1,6 @@
 package com.me.poc.service;
 
-import com.me.poc.domain.game.Game;
-import com.me.poc.util.StringUtils;
+import com.me.poc.domain.Game;
 
 import java.util.HashMap;
 import java.util.Map;
