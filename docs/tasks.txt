@@ -1,0 +1,7 @@
+1. Generate Opponents, and place them on a map
+2. Calculate probability of successful attack, defense and damage
+3. Zwracac:
+ - currentlocation status
+ - mape (stringowa reprezentacja)
+ - mozliwe kolejne pozycje zaleznie od statusu
+   * jesli EXPLORED to mozna sie przemieszczac dalej

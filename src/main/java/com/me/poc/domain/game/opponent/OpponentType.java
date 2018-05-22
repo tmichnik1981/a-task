@@ -1,6 +1,6 @@
-package com.me.poc.domain.game.enemy;
+package com.me.poc.domain.game.opponent;
 
-public enum EnemyType {
+public enum OpponentType {
     ARCHER("Archer", 2, 6, 3, 2, 3, 10, 4), CAVALIER("Cavalier", 6, 15, 15, 15, 25, 100, 7),
     CHAMPION("Champion", 6, 16, 16, 20, 25, 100, 9), CRUSADER("Crusader", 4, 12, 12, 7, 10, 35, 6),
     GRIFFIN("Griffin", 3, 8, 8, 3, 6, 25, 6), HALBERDIER("Halberdier", 1, 6, 5, 2, 3, 10, 5),
@@ -18,7 +18,7 @@ public enum EnemyType {
     private int health;
     private int speed;
 
-    EnemyType(String name, int level, int attack, int defense, int minimumDamage, int maximumDamage, int health, int speed) {
+    OpponentType(String name, int level, int attack, int defense, int minimumDamage, int maximumDamage, int health, int speed) {
         this.name = name;
         this.level = level;
         this.attack = attack;

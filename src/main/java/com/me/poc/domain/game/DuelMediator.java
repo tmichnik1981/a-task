@@ -1,13 +1,13 @@
 package com.me.poc.domain.game;
 
-import com.me.poc.domain.game.enemy.Enemy;
+import com.me.poc.domain.game.opponent.Opponent;
 import com.me.poc.domain.game.player.Player;
 
 import java.util.List;
 
 public class DuelMediator {
-    private final Player player;
-    private final List<Enemy> enemies;
+    private  Player player;
+    private  List<Opponent> enemies;
 
 
     public void start(){

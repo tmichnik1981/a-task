@@ -1,6 +1,6 @@
 package com.me.poc.domain.game.location;
 
-import com.me.poc.domain.game.enemy.Enemy;
+import com.me.poc.domain.game.opponent.Opponent;
 import com.me.poc.domain.game.player.Player;
 
 import java.io.Serializable;
@@ -17,7 +17,7 @@ public abstract class Location implements Serializable {
     private final String name;
     private final String description;
     private LocationStatus status;
-    private final List<Enemy> enemies = new ArrayList();
+    private final List<Opponent> enemies = new ArrayList();
     private Player player;
 
     private int rowOnMap;
